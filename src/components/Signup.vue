@@ -11,10 +11,10 @@
               <el-input v-model="ruleForm.email"></el-input>
             </el-form-item>
             <el-form-item label="Password" prop="password">
-              <el-input v-model="ruleForm.password"></el-input>
+              <el-input v-model="ruleForm.password" type="password"></el-input>
             </el-form-item>
             <el-form-item label="Confirm Password" prop="passwordConfirm">
-              <el-input v-model="ruleForm.passwordConfirm"></el-input>
+              <el-input v-model="ruleForm.passwordConfirm" type="password"></el-input>
             </el-form-item>
             <el-form-item>
               <el-button type="primary" @click="submitForm('ruleForm')">Submit</el-button>
@@ -55,7 +55,7 @@ export default {
       rules: {
         username: [
           { required: true, message: 'Please input username', trigger: 'blur' },
-          { min: 6, max: 20, message: 'Length should be more than 6 chars and less than 20 chars.', trigger: 'blur' }
+          { min: 6, max: 20, message: 'Length: 6 ~ 20 chars.', trigger: 'blur' }
         ],
         email: [
           { required: true, message: 'Please input your email address', trigger: 'blur' },

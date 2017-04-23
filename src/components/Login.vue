@@ -8,7 +8,7 @@
               <el-input v-model="ruleForm.email"></el-input>
             </el-form-item>
             <el-form-item label="Password" prop="password">
-              <el-input v-model="ruleForm.password"></el-input>
+              <el-input v-model="ruleForm.password" type="password"></el-input>
             </el-form-item>
             <el-form-item>
               <el-button type="primary" @click="submitForm('ruleForm')">Submit</el-button>
