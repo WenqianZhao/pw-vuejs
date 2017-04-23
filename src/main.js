@@ -28,16 +28,6 @@ Vue.config.productionTip = false;
 var localConfig = require('../config/local.js');
 var secret = localConfig.secret;
 
-function verifyToken(token) {
-  jwt.verify(token, secret, function(err, decoded){
-    if(err){
-      return {isErr: true, err: err};
-    }else{
-      return {isErr: false, decoded: decoded};
-    }
-  });
-}
-
 const routes = [
   {
     path: '/',
@@ -79,17 +69,22 @@ const routes = [
       if (store.state.user.token !== "" || token !== "") {
         var currToken = (store.state.user.token !== "") ? store.state.user.token : token;
         // verify token
-        var verifiedToken = verifyToken(currToken);
-        if (!verifiedToken.isErr) {
-          if (verifiedToken.decoded.role === "Admin") {
+        jwt.verify(currToken, secret, function(err, decoded){
+          if(!err && decoded.role === "Admin"){
             next();
+          }else{
+            // not admin, go back to home
+            next({
+              path: '/'
+            });
           }
-        }
+        });
+      } else {
+        // not admin, go back to home
+        next({
+          path: '/'
+        });
       }
-      // not admin, go back to home
-      next({
-        path: '/'
-      });
     },
   },
 ];

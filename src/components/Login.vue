@@ -38,6 +38,7 @@ export default {
       rules: {
         email: [
           { required: true, message: 'Please input your email address', trigger: 'blur' },
+          { type: 'email', message: 'Please input the valid email', trigger: 'blur,change' }
         ],
         password: [
           { required: true, message: 'Please input your password', trigger: 'blur' },

@@ -14,14 +14,15 @@
           <el-menu-item index="3-2">Love Soccer</el-menu-item>
           <el-menu-item index="3-3">Simple taobao</el-menu-item>
         </el-submenu>
-        <el-menu-item index="4">
-          <router-link :to="{name:'admin'}" v-if="checkAdmin()" class="link">Admin</router-link>
+        <el-menu-item index="4" v-if="checkPermission() === 1">
+          <router-link :to="{name:'admin'}" class="link">Admin</router-link>
         </el-menu-item>
         <el-menu-item index="5" class="signup">
           <router-link :to="{name:'signup'}" class="link">Sign Up</router-link>
         </el-menu-item>
         <el-menu-item index="6" class="login">
-          <router-link :to="{name:'login'}" class="link">Login</router-link>
+          <router-link :to="{name:'logout'}" class="link" v-if="checkPermission() < 3">Logout</router-link>
+          <router-link :to="{name:'login'}" class="link" v-else>Login</router-link>
         </el-menu-item>      
       </el-menu>
     </div>
@@ -33,35 +34,34 @@
 
 <script>
 import {mapActions, mapGetters} from 'vuex';
-import tokenService from './mixins/tokenService';
+import jwt from 'jsonwebtoken';
+
+var localConfig = require('../config/local.js');
+var secret = localConfig.secret;
 
 export default {
   computed: mapGetters({
-    token: 'token'
+    token: 'token',
+    userObj: 'userObj'
   }),
   data() {
     return {
       activeIndex: '1',
     };
   },
-  mixins: [tokenService],
   methods: {
     handleSelect(key, keyPath) {
       console.log(key, keyPath);
     },
-    checkAdmin() {
-      var tokenInStorage = window.localStorage.getItem('token');
-      if (this.token !== "" || tokenInStorage !== "") {
-        var currToken = (this.token !== "") ? this.token : tokenInStorage;
-        // verify token
-        var verifiedToken = this.verifyToken(currToken);
-        // if (!verifiedToken.isErr) {
-        //   if (verifiedToken.decoded.role === "Admin") {
-        //     return true;
-        //   }
-        // }
+    checkPermission() {
+      if(this.userObj){
+        if(this.userObj.role === 'Admin'){
+          return 1;
+        }else if(this.userObj.role === 'NormalUser'){
+          return 2;
+        }
       }
-      return false;
+      return 3;
     },
   },
 }
