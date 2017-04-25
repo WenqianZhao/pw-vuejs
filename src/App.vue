@@ -1,12 +1,12 @@
 <template>
   <div>
     <div class="nav-bar">
-      <el-menu :default-active="activeIndex" class="el-menu-demo" theme="dark" mode="horizontal" @select="handleSelect">
+      <el-menu class="el-menu-demo" theme="dark" mode="horizontal" @select="handleSelect">
         <el-menu-item index="1">
           <router-link :to="{name:'home'}" class="link">Home</router-link>
         </el-menu-item>
         <el-menu-item index="2">
-          Blog
+          <router-link :to="{name:'blog'}" class="link">Blog</router-link>
         </el-menu-item>
         <el-submenu index="3">
           <template slot="title">Apps</template>
@@ -14,13 +14,16 @@
           <el-menu-item index="3-2">Love Soccer</el-menu-item>
           <el-menu-item index="3-3">Simple taobao</el-menu-item>
         </el-submenu>
-        <el-menu-item index="4" v-if="checkPermission() === 1">
+        <el-menu-item index="4">
+          <router-link :to="{name:'about'}" class="link">About</router-link>
+        </el-menu-item>
+        <el-menu-item index="5" v-if="checkPermission() === 1">
           <router-link :to="{name:'admin'}" class="link">Admin</router-link>
         </el-menu-item>
-        <el-menu-item index="5" class="signup">
+        <el-menu-item index="6" class="signup">
           <router-link :to="{name:'signup'}" class="link">Sign Up</router-link>
         </el-menu-item>
-        <el-menu-item index="6" class="login">
+        <el-menu-item index="7" class="login">
           <router-link :to="{name:'logout'}" class="link" v-if="checkPermission() < 3">Logout</router-link>
           <router-link :to="{name:'login'}" class="link" v-else>Login</router-link>
         </el-menu-item>      
@@ -46,7 +49,6 @@ export default {
   }),
   data() {
     return {
-      activeIndex: '1',
     };
   },
   methods: {

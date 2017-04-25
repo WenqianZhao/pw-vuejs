@@ -1,0 +1,88 @@
+.hello {
+	margin-top: 2%;
+	font-size: 36px;
+}
+
+.about {
+	margin:0 5% 10% 5%;
+
+	.el-collapse-item__header {
+		font-size: 18px;
+	}
+
+	.el-collapse-item__content {
+		font-size: 16px;
+	}
+
+	.icon {
+		height: 15px;
+		width: 25px;
+		margin-left: 2px;
+	}
+
+	.intern-icon {
+		height: 12px;
+		width: 15px;
+		margin-left: 6px;
+	}
+
+	.hobby-icon {
+		height: 15px;
+		width: 18px;
+		margin-left: 2px;
+	}
+
+	.fdu-logo {
+		margin-top: 5px;
+		height: 50px;
+		width: 75%;
+	}
+
+	.neu-logo {
+		height: 70px;
+		width: 75%;
+	}
+
+	.neu-upper {
+		margin-top: 10px;
+	}
+
+	.digitalremedy-logo {
+		height: 70%;
+		width: 75%;
+	}
+
+	.dr-upper {
+		margin-top: 20px;
+	}
+
+	.pl-img {
+		height: 150px;
+		width: 75%;
+		margin-left: 50px;
+	}
+
+	.pl-title {
+		margin-top: 10px;
+	}
+
+	.card {
+		padding:0 10px 0 10px;
+
+		.card-img {
+			height: 200px;
+			width: 100%;
+		}
+
+		.card-p {
+			text-align: center;
+		}
+	}
+
+	.social {
+		padding: 20px;
+		.social-icon {
+			width: 75%;
+		}
+	}
+}

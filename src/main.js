@@ -14,6 +14,8 @@ import Home from './components/Home';
 import Login from './components/Login';
 import Admin from './components/Admin';
 import Signup from './components/Signup';
+import Blog from './components/Blog';
+import About from './components/About';
 
 import jwt from 'jsonwebtoken';
 
@@ -52,6 +54,16 @@ const routes = [
         path: '/'
       });
     }
+  },
+  {
+    path: '/blog',
+    name: 'blog',
+    component: Blog,
+  },
+  {
+    path: '/about',
+    name: 'about',
+    component: About,
   },
   {
     path: '/signup',
