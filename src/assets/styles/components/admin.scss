@@ -1,0 +1,16 @@
+.admin {
+	.admin-menu {
+		a.link {
+			text-decoration: none;
+		}
+	}
+
+	.admin-post-create {
+		margin: 1% 3% 5% 3%;
+
+		.create {
+			font-size: 20px;
+			text-align: center;
+		}
+	}
+}

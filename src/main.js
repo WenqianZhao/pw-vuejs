@@ -16,6 +16,10 @@ import Admin from './components/Admin';
 import Signup from './components/Signup';
 import Blog from './components/Blog';
 import About from './components/About';
+// admin
+import AdminPost from './components/admin/AdminPost';
+import AdminPostCreate from './components/admin/post/AdminPostCreate';
+import AdminPostGetAll from './components/admin/post/AdminPostGetAll';
 
 import jwt from 'jsonwebtoken';
 
@@ -74,30 +78,49 @@ const routes = [
     path: '/admin',
     name: 'admin',
     component: Admin,
-    // Only admin can access this page
-    beforeEnter: (to, from, next) => {
-      var token = window.localStorage.getItem('token');
-
-      if (store.state.user.token !== "" || token !== "") {
-        var currToken = (store.state.user.token !== "") ? store.state.user.token : token;
-        // verify token
-        jwt.verify(currToken, secret, function(err, decoded){
-          if(!err && decoded.role === "Admin"){
-            next();
-          }else{
-            // not admin, go back to home
-            next({
-              path: '/'
-            });
+    children:[
+      {
+        path: 'posts',
+        name: 'adminPost',
+        component: AdminPost,
+        children: [
+          {
+            path: 'create',
+            name: 'adminPostCreate',
+            component: AdminPostCreate
+          },
+          {
+            path: 'getall',
+            name: 'adminPostGetAll',
+            component: AdminPostGetAll
           }
-        });
-      } else {
-        // not admin, go back to home
-        next({
-          path: '/'
-        });
+        ]
       }
-    },
+    ],
+    // Only admin can access this page
+    // beforeEnter: (to, from, next) => {
+    //   var token = window.localStorage.getItem('token');
+
+    //   if (store.state.user.token !== "" || token !== "") {
+    //     var currToken = (store.state.user.token !== "") ? store.state.user.token : token;
+    //     // verify token
+    //     jwt.verify(currToken, secret, function(err, decoded){
+    //       if(!err && decoded.role === "Admin"){
+    //         next();
+    //       }else{
+    //         // not admin, go back to home
+    //         next({
+    //           path: '/'
+    //         });
+    //       }
+    //     });
+    //   } else {
+    //     // not admin, go back to home
+    //     next({
+    //       path: '/'
+    //     });
+    //   }
+    // },
   },
 ];
 
