@@ -13,17 +13,18 @@
               <el-input placeholder="title" v-model="post.title"></el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="6" :offset="2">
-            <el-form-item label="Date:">
-              <el-date-picker type="date" placeholder="Choose date" v-model="post.date" style="width: 100%;"></el-date-picker>
+          <el-col :span="8" :offset="2">
+            <el-form-item label="Tags:" label-width="50px">
+              <el-input v-model="post.tags"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
-        <el-col :span="14">
-        <el-form-item label="Tags(seperated by comma):" label-width="200px">
-          <el-input v-model="post.tags"></el-input>
-        </el-form-item>
-        </el-col>
+        <el-row>
+          <el-col :span="16">
+            <p>Abstract:</p>
+            <el-input type="textarea" v-model="post.abstract"></el-input>
+          </el-col>
+        </el-row>
       </el-form>
     </el-row>
     <el-row>
@@ -43,11 +44,11 @@ export default {
   data() {
     return {
       value: '',
-      lp: 'left',
+      lp: 'top',
       post: {
         title: '',
-        date: '',
-        tags: ''
+        tags: '',
+        abstract: '',
       }
     };
   },
@@ -55,6 +56,30 @@ export default {
     savePost: function(value, reder) {
       console.log(value);
       console.log(reder);
+      var postData = {
+        title: this.post.title,
+        tags: this.post.tags,
+        abstract: this.post.abstract,
+        email: 'zhwq11308@gmail.com',
+        content: value,
+      };
+      this.$store.dispatch('CREATE_NEW_POST', postData).then( (message) => {
+        if(message === 'success'){
+          this.$message({
+            message: 'Successfully create a new post.',
+            type: 'success'
+          });
+        } else {
+          if(!message){
+            this.$message.error(message);
+          } else {
+            this.$message.error('Fail to create a new post.');
+          }
+        }
+        this.$router.push({ name: 'adminPostGetAll'});
+      }).catch((err) => {
+        this.$message.error(err);
+      });
     }
   },
 }
