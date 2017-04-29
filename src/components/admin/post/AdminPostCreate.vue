@@ -63,15 +63,15 @@ export default {
         email: 'zhwq11308@gmail.com',
         content: value,
       };
-      this.$store.dispatch('CREATE_NEW_POST', postData).then( (message) => {
-        if(message === 'success'){
+      this.$store.dispatch('CREATE_NEW_POST', postData).then( (retVal) => {
+        if(retVal.message === 'success'){
           this.$message({
             message: 'Successfully create a new post.',
             type: 'success'
           });
         } else {
-          if(!message){
-            this.$message.error(message);
+          if(!retVal.message){
+            this.$message.error(retVal.message);
           } else {
             this.$message.error('Fail to create a new post.');
           }

@@ -1,11 +1,15 @@
 import axios from 'axios';
 
 const state = {
-	currentPostID: null
+	currentPostID: null,
+	allPosts: [],
+	loading: false,
 };
 
 const getters = {
-	currentPostID: state => state.currentPostID 
+	currentPostID: state => state.currentPostID,
+	allPosts: state => state.allPosts,
+	loading: state => state.loading,
 };
 
 const actions = {
@@ -19,7 +23,10 @@ const actions = {
 				if (response.data.response.status_code === 1512) {
 					console.log(response.data.response.data);
 					commit('SET_CURRENT_POST_ID', response.data.response.data);
-					resolve('success');
+					resolve({
+						message: 'success',
+						post_id: response.data.response.data
+					});
 				} else {
 					var status = "";
 					switch (response.data.response.status_code) {
@@ -30,17 +37,43 @@ const actions = {
 							status = "";
 					};
 					commit('SET_CURRENT_POST_ID', { postID: null });
-					resolve(status);
+					resolve({
+						message: status,
+						post_id: null
+					});
 				}
 			});
 		});
+	},
+
+	GET_ALL_POSTS: function ({commit}) {
+		axios.get(process.env.SERVER_ENV + 'posts/getall').then(function (response) {
+			var postData = response.data.response.data;
+			commit('SET_ALL_POSTS', {allPosts: postData.reverse()});
+			commit('SET_LOADING', {flag: false});
+
+		}).catch(function(err){
+			console.log(err);
+		});
+	},
+
+	SET_LOADING_ACTION: function ({commit}, flag) {
+		commit('SET_LOADING', {flag: flag});
 	},
 };
 
 const mutations = {
 	SET_CURRENT_POST_ID: function (state, {postID}) {
 		state.currentPostID = postID;
-	}
+	},
+
+	SET_ALL_POSTS: function (state, {allPosts}) {
+		state.allPosts = allPosts;
+	},
+
+	SET_LOADING: function (state, {flag}) {
+		state.loading = flag;
+	},
 }
 
 export default {
