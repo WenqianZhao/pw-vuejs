@@ -2,6 +2,9 @@
 	margin: 1em 0 1em 0;
 	.blog-abs {
 		margin: 0 0 1em 0;
+		padding-bottom: 1em;
+		border-bottom: 1px solid rgba(0,0,0,.0785)!important;
+
 		.blog-title {
 			margin: 0.5em 0 0.5em 0;
 			font-family: Helvetica;
@@ -16,13 +19,54 @@
 			p {
 				font-size: 16px;
 			}
-			// the same style as github
+			// similar to github
 			code {
 				padding: 0.2em 0 0.2em 0;
 				margin: 0;
 				font-size: 85%;
 				font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
 				background-color: rgba(27,31,35,0.05);
+				color: #ff4747;
+			}
+		}
+	}
+}
+
+.one-post-outer {
+
+	.one-post {
+		.one-post-title {
+			margin: 1em 0 0.5em 0;
+			font-family: Helvetica;
+		}
+
+		.one-post-author, .one-post-time {
+			margin:0;
+			margin-bottom: 2em;
+			font-size: 14px;
+		}
+
+		.one-post-content {
+			p {
+				font-size: 20px;
+			}
+			// similar to github
+			code {
+				padding: 0.2em 0 0.2em 0;
+				margin: 0;
+				font-size: 85%;
+				font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+				background-color: rgba(27,31,35,0.05);
+				color: #ff4747;
+			}
+		}
+
+		.post-tag {
+			margin: 2em 0 2em 0;
+
+			.el-tag {
+				padding: 0 1em 0 1em;
+				font-size: 16px;
 			}
 		}
 	}

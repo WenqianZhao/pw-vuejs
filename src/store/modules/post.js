@@ -2,12 +2,14 @@ import axios from 'axios';
 
 const state = {
 	currentPostID: null,
+	currentPost: {},
 	allPosts: [],
 	loading: false,
 };
 
 const getters = {
 	currentPostID: state => state.currentPostID,
+	currentPost: state => state.currentPost,
 	allPosts: state => state.allPosts,
 	loading: state => state.loading,
 };
@@ -57,6 +59,16 @@ const actions = {
 		});
 	},
 
+	GET_ONE_POST: function ({commit}, postData) {
+		axios.post(process.env.SERVER_ENV + 'posts/getone', postData).then(function (response) {
+			var currentPost = response.data.response.data;
+			commit('SET_CURRENT_POST', {currentPost: currentPost});
+			commit('SET_LOADING', {flag: false});
+		}).catch(function(err){
+			console.log(err);
+		});
+	},
+
 	SET_LOADING_ACTION: function ({commit}, flag) {
 		commit('SET_LOADING', {flag: flag});
 	},
@@ -69,6 +81,10 @@ const mutations = {
 
 	SET_ALL_POSTS: function (state, {allPosts}) {
 		state.allPosts = allPosts;
+	},
+
+	SET_CURRENT_POST: function (state, {currentPost}) {
+		state.currentPost = currentPost;
 	},
 
 	SET_LOADING: function (state, {flag}) {
