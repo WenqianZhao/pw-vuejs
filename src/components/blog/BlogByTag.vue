@@ -8,7 +8,7 @@
 		  				v-for="post in this.allPosts" 
 		  				:key="post.post_id" 
 		  				:post="post"
-		  				:byTag="byTag"
+              :byTag="byTag"
 		  			></blog-abstract-component>
 		  		</el-col>
 		  		<el-col :span="5">
@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import BlogAbstractComponent from './blog/BlogAbstractComponent';
+import BlogAbstractComponent from './BlogAbstractComponent';
 import {mapGetters, mapActions} from 'vuex';
 
 export default {
@@ -33,15 +33,21 @@ export default {
   }),
   data() {
     return {
-    	byTag: false
+      byTag: true,
     };
   },
   methods: {
-  	
+  	fetchPostsByTag () {
+      var tag = this.$route.params.name;
+      this.$store.dispatch('SET_LOADING_ACTION', true);
+      this.$store.dispatch('GET_POSTS_BY_TAG', { tag : tag});
+    }
+  },
+  watch: {
+    '$route': 'fetchPostsByTag'
   },
   created() {
-  	this.$store.dispatch('SET_LOADING_ACTION', true);
-  	this.$store.dispatch('GET_ALL_POSTS');
+  	this.fetchPostsByTag();
   }
 }
 </script>

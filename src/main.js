@@ -17,6 +17,7 @@ import Signup from './components/Signup';
 import Blog from './components/Blog';
 import About from './components/About';
 import OnePost from './components/OnePost';
+import BlogByTag from './components/blog/BlogByTag';
 
 // admin
 import AdminPost from './components/admin/AdminPost';
@@ -65,6 +66,11 @@ const routes = [
     path: '/blog',
     name: 'blog',
     component: Blog,
+  },
+  {
+    path: '/blog/tag/:name',
+    name: 'blogByTag',
+    component: BlogByTag,
   },
   {
     path: '/blog/:id',

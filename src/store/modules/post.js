@@ -69,6 +69,16 @@ const actions = {
 		});
 	},
 
+	GET_POSTS_BY_TAG: function ({commit}, postData) {
+		axios.post(process.env.SERVER_ENV + 'posts/getbytag', postData).then(function (response) {
+			var posts = response.data.response.data.posts;
+			commit('SET_ALL_POSTS', {allPosts: posts});
+			commit('SET_LOADING', {flag: false});
+		}).catch(function(err){
+			console.log(err);
+		});
+	},
+
 	SET_LOADING_ACTION: function ({commit}, flag) {
 		commit('SET_LOADING', {flag: flag});
 	},

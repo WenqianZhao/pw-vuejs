@@ -18,11 +18,13 @@
             <div v-html="compiledMarkdown"></div>
           </el-row>
           <el-row class="post-tag">
-            <el-tag v-for="tag in currentPost.tags">{{tag.content}}</el-tag>
+            <el-tag v-for="tag in currentPost.tags" :key="tag.id">
+              <router-link :to="{name:'blogByTag', params:{ name : tag.content}}">{{tag.content}}</router-link>
+            </el-tag>
           </el-row>
           <el-row>
             <h3>Comments:</h3>
-            
+
           </el-row>
         </div>
   		</el-col>

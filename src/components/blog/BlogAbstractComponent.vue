@@ -1,7 +1,7 @@
 <template>
   <div class="blog-abs">
   	<el-row>
-      <h2 class="blog-title">{{post.post_title}}</h2>
+      <h2 class="blog-title"><router-link :to="{name:'onePost', params:{ id : this.postComputedID}}">{{post.post_title}}</router-link></h2>
     </el-row>
     <el-row>
       <p class="blog-author">Author: <i>{{post.post_author.username}}</i></p>
@@ -10,7 +10,12 @@
       <div v-html="compiledMarkdown"></div>
     </el-row>
     <el-row class="readmore">
-      <router-link :to="{name:'onePost', params:{ id : this.postComputedID}}">Read More</router-link>
+      <router-link :to="{name:'onePost', params:{ id : this.postComputedID}}">Read More...</router-link>
+    </el-row>
+    <el-row class="blog-tags" v-if="this.byTag">
+      <el-tag v-for="tag in post.post_tags" :key="tag.id">
+        <router-link :to="{name:'blogByTag', params:{ name : tag.content}}">{{tag.content}}</router-link>
+      </el-tag>
     </el-row>
   </div>
 </template>
@@ -19,7 +24,7 @@
 var marked = require('marked');
 
 export default {
-  props: ['post'],
+  props: ['post','byTag'],
   computed: {
     compiledMarkdown: function () {
       return marked(this.post.post_abstract, { sanitize: true })
