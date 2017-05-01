@@ -52,6 +52,28 @@ const actions = {
 		});
 	},
 
+	SEARCH_POSTS: function ({commit}, postData) {
+		return new Promise( (resolve, reject) => {
+			axios.post(process.env.SERVER_ENV + 'posts/search', postData).then(function (response) {
+				// If We get the matched posts
+				if (response.data.response.status_code === 1520) {
+					commit('SET_ALL_POSTS', {allPosts: response.data.response.data});
+					resolve('success');
+				} else {
+					var status = "";
+					switch (response.data.response.status_code) {
+						case 1519:
+							status = "No posts matched.";
+							break;
+						default:
+							status = "Error occurs when searching for posts.";
+					};
+					resolve(status);
+				}
+			});
+		});
+	},
+
 	GET_ALL_POSTS: function ({commit}) {
 		axios.get(process.env.SERVER_ENV + 'posts/getall').then(function (response) {
 			var postData = response.data.response.data;

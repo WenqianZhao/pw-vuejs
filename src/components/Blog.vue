@@ -13,7 +13,13 @@
 		  		</el-col>
 		  		<el-col :span="5" :offset="1" class="tool-bar">
 		  			<el-row class="search-bar">
-
+		 					<p>Search For Posts:</p>
+							<el-input
+							  placeholder="Javascript"
+							  icon="search"
+							  v-model="searchInput"
+							  :on-icon-click="handleIconClick">
+							</el-input>
 		  			</el-row>
 		  			<el-row class="all-tags">
 							<el-row>
@@ -48,11 +54,16 @@ export default {
   }),
   data() {
     return {
-    	byTag: false
+    	byTag: false,
+    	searchInput: '', 	
     };
   },
   methods: {
-  	
+  	handleIconClick(ev) {
+  		// do Base64 encoding
+      var encodedString = new Buffer(this.searchInput).toString('base64');
+  		this.$router.push({ name: 'blogSearch', params: { content: encodedString }});
+  	}
   },
   created() {
   	this.$store.dispatch('SET_LOADING_ACTION', true);

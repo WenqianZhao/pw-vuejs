@@ -5,7 +5,7 @@
   			<el-row>
 					<el-col :span="17" :offset="1">
             <el-row>
-              <p>Here are the posts with tag " <i>{{currentTag}}</i> ":</p>
+              <p>Here are the posts with tag "<i>{{currentTag}}</i> ":</p>
             </el-row>
 						<blog-abstract-component 
 		  				v-for="post in this.allPosts" 
