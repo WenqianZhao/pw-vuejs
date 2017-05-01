@@ -22,7 +22,30 @@
               <router-link :to="{name:'blogByTag', params:{ name : tag.content}}">{{tag.content}}</router-link>
             </el-tag>
           </el-row>
-          <el-row>
+          <el-row class="post-icons">
+            <el-col :span="2">
+              <span v-if="this.likeCurrent" v-on:click="changeLike">
+                <el-tooltip class="item" effect="dark" content="Click to cancel collection" placement="top-start">
+                  <i class="el-icon-star-on"></i>
+                </el-tooltip>
+              </span>
+              <span v-else v-on:click="changeLike">
+                <el-tooltip class="item" effect="dark" content="Click to collect" placement="top-start">
+                  <i class="el-icon-star-off"></i>
+                </el-tooltip>
+              </span>
+              <span class="icon-number">{{currentPost.likes}}</span>
+            </el-col>
+            <el-col :span="2">
+              <span v-on:click="shareTo">
+                <el-tooltip class="item" effect="dark" content="Click to share" placement="top-start">
+                  <i class="el-icon-share"></i>
+                </el-tooltip>
+              </span>
+              <span class="icon-number">{{currentPost.reposts}}</span>
+            </el-col>
+          </el-row>
+          <el-row class="post-comments">
             <h3>Comments:</h3>
 
           </el-row>
@@ -43,9 +66,11 @@ export default {
     currentPost: function () {
       return this.$store.getters.currentPost;
     },
+    likeCurrent: function () {
+      return this.$store.getters.likeCurrent;
+    },
     compiledMarkdown: function () {
       if(this.currentPost){
-        console.log(this.currentPost);
         return marked(this.currentPost.content, { sanitize: true });
       }
     },
@@ -62,10 +87,17 @@ export default {
       var postID = decodedString.split('&&')[0];
       this.$store.dispatch('SET_LOADING_ACTION', true);
       this.$store.dispatch('GET_ONE_POST', {postID: postID});
-    }
+    },
+    changeLike () {
+      this.like = !this.like;
+      this.$store.dispatch('UPDATE_POST_WITH_COLLECTION', {postID: this.currentPost.id, addToCollection: this.like});
+    },
+    shareTo () {
+
+    },
   },
   watch: {
-    '$route': 'fetchOnePost'
+    '$route': 'fetchOnePost',
   },
   created() {
   	this.fetchOnePost();

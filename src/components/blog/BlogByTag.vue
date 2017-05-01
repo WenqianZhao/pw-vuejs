@@ -3,7 +3,10 @@
   	<el-row type="flex" justify="center">
   		<el-col :span="18">
   			<el-row>
-					<el-col :span="18" :offset="1">
+					<el-col :span="17" :offset="1">
+            <el-row>
+              <p>Here are the posts with tag " <i>{{currentTag}}</i> ":</p>
+            </el-row>
 						<blog-abstract-component 
 		  				v-for="post in this.allPosts" 
 		  				:key="post.post_id" 
@@ -11,7 +14,7 @@
               :byTag="byTag"
 		  			></blog-abstract-component>
 		  		</el-col>
-		  		<el-col :span="5">
+		  		<el-col :span="5" :offset="1">
 		  		</el-col>
   			</el-row>
   		</el-col>
@@ -34,6 +37,7 @@ export default {
   data() {
     return {
       byTag: true,
+      currentTag: this.$route.params.name,
     };
   },
   methods: {

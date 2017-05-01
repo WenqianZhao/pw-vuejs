@@ -4,26 +4,30 @@ const state = {
 	currentPostID: null,
 	currentPost: {},
 	allPosts: [],
+	allTags: [],
 	loading: false,
+	loadingTag: false,
+	likeCurrent: false,
 };
 
 const getters = {
 	currentPostID: state => state.currentPostID,
 	currentPost: state => state.currentPost,
 	allPosts: state => state.allPosts,
+	allTags: state => state.allTags,
 	loading: state => state.loading,
+	loadingTag: state => state.loadingTag,
+	likeCurrent: state => state.likeCurrent,
 };
 
 const actions = {
 	CREATE_NEW_POST: function ({commit}, postData) {
 		return new Promise( (resolve, reject) => {
 			var data = {};
-			console.log(postData);
 			axios.post(process.env.SERVER_ENV + 'posts/create', postData).then(function (response) {
 
 				// If post is successfully created
 				if (response.data.response.status_code === 1512) {
-					console.log(response.data.response.data);
 					commit('SET_CURRENT_POST_ID', response.data.response.data);
 					resolve({
 						message: 'success',
@@ -53,7 +57,16 @@ const actions = {
 			var postData = response.data.response.data;
 			commit('SET_ALL_POSTS', {allPosts: postData.reverse()});
 			commit('SET_LOADING', {flag: false});
+		}).catch(function(err){
+			console.log(err);
+		});
+	},
 
+	GET_ALL_TAGS: function ({commit}) {
+		axios.get(process.env.SERVER_ENV + 'tags/getall').then(function (response) {
+			var postData = response.data.response.data;
+			commit('SET_ALL_TAGS', {allTags: postData});
+			commit('SET_LOADING_TAG', {flag: false});
 		}).catch(function(err){
 			console.log(err);
 		});
@@ -79,8 +92,22 @@ const actions = {
 		});
 	},
 
+	UPDATE_POST_WITH_COLLECTION: function ({commit,state}, postData) {
+		axios.post(process.env.SERVER_ENV + 'posts/updatecollection', postData).then(function (response) {
+			var updatedPost = response.data.response.data;
+			commit('UPDATE_CURRENT_POST', {currentPost: updatedPost});
+			commit('UPDATE_LIKE_CURRETN', postData);
+		}).catch(function(err){
+			console.log(err);
+		});
+	},
+
 	SET_LOADING_ACTION: function ({commit}, flag) {
 		commit('SET_LOADING', {flag: flag});
+	},
+
+	SET_LOADING_TAG_ACTION: function ({commit}, flag) {
+		commit('SET_LOADING_TAG', {flag: flag});
 	},
 };
 
@@ -93,12 +120,28 @@ const mutations = {
 		state.allPosts = allPosts;
 	},
 
+	SET_ALL_TAGS: function (state, {allTags}) {
+		state.allTags = allTags;
+	},
+
 	SET_CURRENT_POST: function (state, {currentPost}) {
 		state.currentPost = currentPost;
 	},
 
+	UPDATE_CURRENT_POST: function (state, {currentPost}) {
+		state.currentPost.likes = currentPost.likes;
+	},
+
+	UPDATE_LIKE_CURRETN: function (state, {addToCollection}) {
+		state.likeCurrent = addToCollection;
+	},
+
 	SET_LOADING: function (state, {flag}) {
 		state.loading = flag;
+	},
+
+	SET_LOADING_TAG: function (state, {flag}) {
+		state.loadingTag = flag;
 	},
 }
 

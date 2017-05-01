@@ -3,6 +3,7 @@
 	a {
 		text-decoration: none;
 	}
+	
 	.blog-abs {
 		margin: 0 0 1em 0;
 		padding-bottom: 1em;
@@ -60,6 +61,18 @@
 			}
 		}
 	}
+
+	.all-tags {
+		.tag {
+			margin: 0.5em 2em 0.5em 0em;
+			a:link, a:visited {
+				color: white;
+			}
+			a:hover {
+				color: white;
+			}
+		}
+	}
 }
 
 .one-post-outer {
@@ -108,6 +121,27 @@
 			a:hover {
 				color: white;
 			}
+		}
+
+		.post-icons {
+			.el-icon-star-on, .el-icon-star-off, .el-icon-share {
+    			font-size: 1.5em;
+    			color: #42c7f4;
+			}
+			.el-icon-star-on:hover, .el-icon-star-off:hover, .el-icon-share:hover {
+				color: #84e0ff;
+				cursor: pointer;
+			}
+			.icon-number {
+				color: #888f91;
+				margin-left: 0.2em;
+				font-size: 1.2em;
+			}
+		}
+
+		.post-comments {
+			margin-top: 1em;
+			border-top: 1px solid rgba(0,0,0,.0785)!important;
 		}
 	}
 }
