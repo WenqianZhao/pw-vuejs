@@ -22,12 +22,17 @@
 
 <script>
 var marked = require('marked');
+marked.setOptions({
+  highlight: function (code) {
+    return require('highlight.js').highlightAuto(code).value;
+  }
+},{ sanitize: true });
 
 export default {
   props: ['post','byTag'],
   computed: {
     compiledMarkdown: function () {
-      return marked(this.post.post_abstract, { sanitize: true })
+      return marked(this.post.post_abstract);
     },
     postComputedID: function () {
       // use id + '&&' + title to distinguish different posts
@@ -50,4 +55,5 @@ export default {
 
 <style lang="scss">
   @import "~styles/components/blog.scss";
+  @import "~styles/css/highlightjs.min.css";
 </style>

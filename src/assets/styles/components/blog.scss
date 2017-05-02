@@ -36,8 +36,14 @@
 				margin: 0;
 				font-size: 85%;
 				font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+			}
+			p>code {
 				background-color: rgba(27,31,35,0.05);
 				color: #ff4747;
+			}
+			pre {
+				padding: 1em;
+				background-color: rgba(27,31,35,0.05);
 			}
 		}
 
@@ -103,8 +109,14 @@
 				margin: 0;
 				font-size: 85%;
 				font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+			}
+			p>code {
 				background-color: rgba(27,31,35,0.05);
 				color: #ff4747;
+			}
+			pre {
+				padding: 1em;
+				background-color: rgba(27,31,35,0.05);
 			}
 		}
 

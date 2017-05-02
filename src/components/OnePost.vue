@@ -57,6 +57,11 @@
 
 <script>
 var marked = require('marked');
+marked.setOptions({
+  highlight: function (code) {
+    return require('highlight.js').highlightAuto(code).value;
+  }
+},{ sanitize: true });
 
 export default {
   computed: {
@@ -71,7 +76,7 @@ export default {
     },
     compiledMarkdown: function () {
       if(this.currentPost){
-        return marked(this.currentPost.content, { sanitize: true });
+        return marked(this.currentPost.content);
       }
     },
   },
@@ -107,4 +112,5 @@ export default {
 
 <style lang="scss">
   @import "~styles/components/blog.scss";
+  @import "~styles/css/highlightjs.min.css";
 </style>
