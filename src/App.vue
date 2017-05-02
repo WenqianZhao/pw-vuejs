@@ -8,7 +8,7 @@
               <router-link :to="{name:'home'}" class="link">Home</router-link>
             </el-menu-item>
             <el-menu-item index="2">
-              <router-link :to="{name:'blog'}" class="link">Blog</router-link>
+              <router-link :to="{name:'allBlogs'}" class="link">Blog</router-link>
             </el-menu-item>
             <el-submenu index="3">
               <template slot="title">Apps</template>

@@ -4,12 +4,9 @@
   		<el-col :span="18">
   			<el-row>
 					<el-col :span="17" :offset="1">
-						<blog-abstract-component 
-		  				v-for="post in this.allPosts" 
-		  				:key="post.post_id" 
-		  				:post="post"
-		  				:byTag="byTag"
-		  			></blog-abstract-component>
+						<div>
+              <router-view></router-view>
+            </div>
 		  		</el-col>
 		  		<el-col :span="5" :offset="1" class="tool-bar">
 		  			<el-row class="search-bar">
@@ -49,7 +46,6 @@ export default {
   computed: mapGetters({
   	loading: 'loading',
   	loadingTag: 'loadingTag',
-  	allPosts: 'allPosts',
   	allTags: 'allTags',
   }),
   data() {
@@ -66,8 +62,6 @@ export default {
   	}
   },
   created() {
-  	this.$store.dispatch('SET_LOADING_ACTION', true);
-  	this.$store.dispatch('GET_ALL_POSTS');
   	this.$store.dispatch('SET_LOADING_TAG_ACTION', true);
   	this.$store.dispatch('GET_ALL_TAGS');
   }

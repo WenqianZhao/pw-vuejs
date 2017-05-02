@@ -19,6 +19,7 @@ import About from './components/About';
 import OnePost from './components/OnePost';
 import BlogByTag from './components/blog/BlogByTag';
 import BlogSearch from './components/blog/BlogSearch';
+import BlogAll from './components/blog/BlogAll';
 
 // admin
 import AdminPost from './components/admin/AdminPost';
@@ -67,16 +68,23 @@ const routes = [
     path: '/blog',
     name: 'blog',
     component: Blog,
-  },
-  {
-    path: '/blog/tag/:name',
-    name: 'blogByTag',
-    component: BlogByTag,
-  },
-  {
-    path: '/blog/search/:content',
-    name: 'blogSearch',
-    component: BlogSearch,
+    children: [
+      {
+        path: 'all',
+        name: 'allBlogs',
+        component: BlogAll,
+      },
+      {
+        path: 'tag/:name',
+        name: 'blogByTag',
+        component: BlogByTag,
+      },
+      {
+        path: 'search/:content',
+        name: 'blogSearch',
+        component: BlogSearch,
+      }
+    ]
   },
   {
     path: '/blog/:id',

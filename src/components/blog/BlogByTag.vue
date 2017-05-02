@@ -1,24 +1,14 @@
 <template>
-  <div class="blog" v-loading.fullscreen.lock="loading" element-loading-text="Loading...">
-  	<el-row type="flex" justify="center">
-  		<el-col :span="18">
-  			<el-row>
-					<el-col :span="17" :offset="1">
-            <el-row>
-              <p>Here are the posts with tag "<i>{{currentTag}}</i> ":</p>
-            </el-row>
-						<blog-abstract-component 
-		  				v-for="post in this.allPosts" 
-		  				:key="post.post_id" 
-		  				:post="post"
-              :byTag="byTag"
-		  			></blog-abstract-component>
-		  		</el-col>
-		  		<el-col :span="5" :offset="1">
-		  		</el-col>
-  			</el-row>
-  		</el-col>
-  	</el-row>
+  <div class="blog-by-tag">
+    <el-row>
+      <p>Here are the posts with tag "<i>{{currentTag}}</i> ":</p>
+    </el-row>
+		<blog-abstract-component 
+			v-for="post in this.allPosts" 
+			:key="post.post_id" 
+			:post="post"
+      :byTag="byTag"
+		></blog-abstract-component>
   </div>
 </template>
 
