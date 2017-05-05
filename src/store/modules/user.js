@@ -119,6 +119,23 @@ const actions = {
 			reject(error);
 		});
 	},
+	SET_USER_STATE: function({commit}, {token, decoded}) {
+		return new Promise( (resolve) => {
+			var userData = {
+				token: token,
+				// contains id, username, email and role
+				userObj: {
+					username: decoded.username,
+					email: decoded.email,
+					role: decoded.role
+				},
+				status: null
+			};
+			commit('SET_USER_DATA', userData);
+			resolve('success');
+		});
+		
+	},
 	RESET_USER_STATE: function ({commit}) {
 		commit('RESET_USER_STATE');
 	},

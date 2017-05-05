@@ -4,21 +4,21 @@
       <el-row>
         <el-col :span="20">
           <el-form :model="ruleForm" :rules="rules" :label-position="labelPosition" ref="ruleForm" label-width="200px" class="demo-ruleForm">
-            <el-form-item label="Username" prop="username">
+            <el-form-item :label="this.$i18n.t('signup.Username')" prop="username">
               <el-input v-model="ruleForm.username"></el-input>
             </el-form-item>
-            <el-form-item label="Email" prop="email">
+            <el-form-item :label="this.$i18n.t('login.Email')" prop="email">
               <el-input v-model="ruleForm.email"></el-input>
             </el-form-item>
-            <el-form-item label="Password" prop="password">
+            <el-form-item :label="this.$i18n.t('login.Password')" prop="password">
               <el-input v-model="ruleForm.password" type="password"></el-input>
             </el-form-item>
-            <el-form-item label="Confirm Password" prop="passwordConfirm">
+            <el-form-item :label="this.$i18n.t('signup.cfpassword')" prop="passwordConfirm">
               <el-input v-model="ruleForm.passwordConfirm" type="password"></el-input>
             </el-form-item>
             <el-form-item>
-              <el-button type="primary" @click="submitForm('ruleForm')">Submit</el-button>
-              <el-button @click="resetForm('ruleForm')">Reset</el-button>
+              <el-button type="primary" @click="submitForm('ruleForm')">{{$t('login.Submit')}}</el-button>
+              <el-button @click="resetForm('ruleForm')">{{$t('login.Reset')}}</el-button>
             </el-form-item>
           </el-form>
         </el-col>
@@ -37,9 +37,9 @@ export default {
   data() {
     var validatePass = (rule, value, callback) => {
       if (value === '') {
-        callback(new Error('Password should not be empty'));
+        callback(new Error(this.$i18n.t('signup.pwdNotEmpty')));
       } else if (value !== this.ruleForm.password) {
-        callback(new Error('Please input the same password'));
+        callback(new Error(this.$i18n.t('signup.cfpasswordNotEqual')));
       } else {
         callback();
       }
@@ -54,19 +54,19 @@ export default {
       },
       rules: {
         username: [
-          { required: true, message: 'Please input username', trigger: 'blur' },
-          { min: 6, max: 20, message: 'Length: 6 ~ 20 chars.', trigger: 'blur' }
+          { required: true, message: this.$i18n.t('signup.piu'), trigger: 'blur' },
+          { min: 6, max: 20, message: this.$i18n.t('signup.length'), trigger: 'blur' }
         ],
         email: [
-          { required: true, message: 'Please input your email address', trigger: 'blur' },
-          { type: 'email', message: 'Please input the valid email', trigger: 'blur,change' }
+          { required: true, message: this.$i18n.t('signup.pie'), trigger: 'blur' },
+          { type: 'email', message: this.$i18n.t('signup.emailInvalid'), trigger: 'blur,change' }
         ],
         password: [
-          { required: true, message: 'Please input your password', trigger: 'blur' },
-          { min: 8, message: 'Length should be more than 8 chars.', trigger: 'blur' }
+          { required: true, message: this.$i18n.t('signup.pip'), trigger: 'blur' },
+          { min: 8, message: this.$i18n.t('signup.pLength'), trigger: 'blur' }
         ],
         passwordConfirm: [
-          { required: true, message: 'Please confirm your password', trigger: 'blur' },
+          { required: true, message: this.$i18n.t('signup.pCfpassword'), trigger: 'blur' },
           { validator: validatePass, trigger: 'blur' }
         ]
       }
@@ -83,8 +83,8 @@ export default {
           }).then( (message) => {
             if(message === 'success'){
               this.$notify({
-                title: 'Congratulations',
-                message: 'Sign up successfully!',
+                title: this.$i18n.t("login.cong"),
+                message: this.$i18n.t('signup.signupSuccess'),
                 type: 'success',
                 duration: 2000
               });

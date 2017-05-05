@@ -7,11 +7,14 @@
             <h1 class="one-post-title" >{{currentPost.title}}</h1>
           </el-row>
           <el-row>
-            <el-col :span="6">
+            <el-col :span="5">
               <p class="one-post-author">Author: <i>{{currentPost.author.username}}</i></p>
             </el-col>
             <el-col :span="6">
               <p class="one-post-time">Created At: <i>{{currentPost.createdAt.split('T')[0]}}</i></p>
+            </el-col>
+            <el-col :span="4">
+              <p class="one-post-time">Clicks: <i>{{currentPost.clicks}}</i></p>
             </el-col>
           </el-row>
           <el-row class="one-post-content">

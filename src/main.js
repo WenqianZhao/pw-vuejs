@@ -3,6 +3,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import VueRouter from 'vue-router';
+import VueI18n from 'vue-i18n'
 
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-default/index.css';
@@ -20,6 +21,10 @@ import OnePost from './components/OnePost';
 import BlogByTag from './components/blog/BlogByTag';
 import BlogSearch from './components/blog/BlogSearch';
 import BlogAll from './components/blog/BlogAll';
+import Account from './components/user/Account';
+import Profile from './components/user/Profile';
+import ChangePassword from './components/user/ChangePassword';
+import UserCollection from './components/user/UserCollection';
 
 // admin
 import AdminPost from './components/admin/AdminPost';
@@ -29,10 +34,12 @@ import AdminPostGetAll from './components/admin/post/AdminPostGetAll';
 import jwt from 'jsonwebtoken';
 
 import store from './store';
+import messages from './assets/i18n/messages.js';
 
 Vue.use(Vuex);
 Vue.use(ElementUI);
 Vue.use(VueRouter);
+Vue.use(VueI18n);
 
 Vue.config.productionTip = false;
 
@@ -63,6 +70,28 @@ const routes = [
         path: '/'
       });
     }
+  },
+  {
+    path: '/user',
+    name: 'account',
+    component: Account,
+    children: [
+      {
+        path: 'profile',
+        name: 'profile',
+        component: Profile,
+      },
+      {
+        path: 'changepassword',
+        name: 'changePassword',
+        component: ChangePassword,
+      },
+      {
+        path: 'collection',
+        name: 'userCollection',
+        component: UserCollection,
+      }
+    ]
   },
   {
     path: '/blog',
@@ -128,8 +157,8 @@ const routes = [
     // beforeEnter: (to, from, next) => {
     //   var token = window.localStorage.getItem('token');
 
-    //   if (store.state.user.token !== "" || token !== "") {
-    //     var currToken = (store.state.user.token !== "") ? store.state.user.token : token;
+    //   if (store.state.user.token || token) {
+    //     var currToken = (store.state.user.token) ? store.state.user.token : token;
     //     // verify token
     //     jwt.verify(currToken, secret, function(err, decoded){
     //       if(!err && decoded.role === "Admin"){
@@ -155,11 +184,41 @@ const router = new VueRouter({
   routes,
 });
 
+router.beforeEach((to, from, next) => {
+    var token = window.localStorage.getItem('token');
+    if (store.state.user.token || token) {
+      var currToken = (store.state.user.token) ? store.state.user.token : token;
+      // verify token
+      jwt.verify(currToken, secret, function(err, decoded){
+        if(decoded){
+          store.dispatch('SET_USER_STATE', {token: currToken, decoded: decoded})
+          .then((message) => {
+            next();
+          });
+        } else {
+          next({
+            path: '/logout'
+          });
+        }
+      });
+    } else {
+      // Not logged in
+      next();
+    }
+})
+
+// for different language
+const i18n = new VueI18n({
+  locale: 'en', // set locale
+  fallbackLocale: 'en',
+  messages, // set locale messages
+})
 
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
   router,
   store,
+  i18n,
   render: h => h(App),
 });

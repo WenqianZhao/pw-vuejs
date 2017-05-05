@@ -4,15 +4,15 @@
       <el-row>
         <el-col :span="20">
           <el-form :model="ruleForm" :rules="rules" :label-position="labelPosition" ref="ruleForm" label-width="200px" class="demo-ruleForm">
-            <el-form-item label="Email" prop="email">
+            <el-form-item :label="this.$i18n.t('login.Email')" prop="email">
               <el-input v-model="ruleForm.email"></el-input>
             </el-form-item>
-            <el-form-item label="Password" prop="password">
+            <el-form-item :label="this.$i18n.t('login.Password')" prop="password">
               <el-input v-model="ruleForm.password" type="password"></el-input>
             </el-form-item>
             <el-form-item>
-              <el-button type="primary" @click="submitForm('ruleForm')">Submit</el-button>
-              <el-button @click="resetForm('ruleForm')">Reset</el-button>
+              <el-button type="primary" @click="submitForm('ruleForm')">{{$t('login.Submit')}}</el-button>
+              <el-button @click="resetForm('ruleForm')">{{$t('login.Reset')}}</el-button>
             </el-form-item>
           </el-form>
         </el-col>
@@ -37,11 +37,11 @@ export default {
       },
       rules: {
         email: [
-          { required: true, message: 'Please input your email address', trigger: 'blur' },
-          { type: 'email', message: 'Please input the valid email', trigger: 'blur,change' }
+          { required: true, message: this.$i18n.t("login.checkEmail"), trigger: 'blur' },
+          { type: 'email', message: this.$i18n.t("login.checkEmail2"), trigger: 'blur,change' }
         ],
         password: [
-          { required: true, message: 'Please input your password', trigger: 'blur' },
+          { required: true, message: this.$i18n.t("login.checkPassword"), trigger: 'blur' },
         ],
       }
     };
@@ -56,8 +56,8 @@ export default {
           }).then( (message) => {
             if(message === 'success'){
               this.$notify({
-                title: 'Congratulations',
-                message: 'Login successfully!',
+                title: this.$i18n.t("login.cong"),
+                message: this.$i18n.t("login.loginSuccess"),
                 type: 'success',
                 duration: 2000
               });

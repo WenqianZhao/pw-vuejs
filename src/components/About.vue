@@ -8,28 +8,28 @@
 	  	<el-collapse v-model="activeName" accordion>
 			  <el-collapse-item name="1">
 				  <template slot="title">
-			      Education<img src="../assets/images/icon/education.png" class="icon">
+			      {{$t('about.Education')}}<img src="../assets/images/icon/education.png" class="icon">
 			    </template>
 			  	<el-collapse v-model="subActiveName" accordion>
-			  		<el-collapse-item title="Undergraduate" name="5">
+			  		<el-collapse-item :title="this.$i18n.t('about.Undergraduate')" name="5">
 			  			<el-row>
 			  				<el-col :span="9">
 			  					<img class="fdu-logo" src="../assets/images/universityLogo/fudan-logo.jpg">
 			  				</el-col>
 			  				<el-col :span="15" >
-			  					<div>Bachelor of Science in Electrical Engineering</div>
-			  					<div>From 2011 to 2015</div>
+			  					<div>{{$t('about.b1')}}</div>
+			  					<div>{{$t('about.b2')}}</div>
 			  				</el-col>
 			  			</el-row>
 			  		</el-collapse-item>
-			  		<el-collapse-item title="Graduate" name="6">
+			  		<el-collapse-item :title="this.$i18n.t('about.Graduate')" name="6">
 			  			<el-row>
 			  				<el-col :span="9">
 			  					<img class="neu-logo" src="../assets/images/universityLogo/neu-logo.jpg">
 			  				</el-col>
 			  				<el-col :span="15">
-			  					<div class="neu-upper">Master of Science in Computer Engineering</div>
-			  					<div>From 2015 to Now</div>
+			  					<div class="neu-upper">{{$t('about.m1')}}</div>
+			  					<div>{{$t('about.m2')}}</div>
 			  				</el-col>
 			  			</el-row>
 			  		</el-collapse-item>
@@ -37,35 +37,35 @@
 			  </el-collapse-item>
 			  <el-collapse-item name="2">
 			  	<template slot="title">
-			      Internship<img src="../assets/images/icon/internship.png" class="intern-icon">
+			      {{$t('about.Internship')}}<img src="../assets/images/icon/internship.png" class="intern-icon">
 			    </template>
 			    <el-row>
 	  				<el-col :span="9">
 	  					<img class="digitalremedy-logo" src="../assets/images/digitalremedy.jpg">
 	  				</el-col>
 	  				<el-col :span="15" >
-	  					<div class="dr-upper">Software Developer Intern</div>
-	  					<div>From Jan 2017 to Now</div>
+	  					<div class="dr-upper">{{$t('about.i1')}}</div>
+	  					<div>{{$t('about.i2')}}</div>
 	  				</el-col>
 	  			</el-row>
 			  </el-collapse-item>
 			  <el-collapse-item name="3">
 			  	<template slot="title">
-			      Skills<img src="../assets/images/icon/skill.png" class="intern-icon">
+			      {{$t('about.Skills')}}<img src="../assets/images/icon/skill.png" class="intern-icon">
 			    </template>
 			    <el-row>
 	  				<el-col :span="16">
 	  					<img class="pl-img" src="../assets/images/programming-languages.jpg">
 	  				</el-col>
 	  				<el-col :span="8" >
-	  					<div class="pl-title">Firmly Grasp :</div>
+	  					<div class="pl-title">{{$t('about.fg')}}</div>
 	  					<div>
 	  						<el-tag>Java</el-tag>
 	  						<el-tag>Javascript</el-tag>
 	  						<el-tag>PHP</el-tag>
 	  						<el-tag>Python</el-tag>
 	  					</div>
-	  					<div class="pl-title">Have Learnt :</div>
+	  					<div class="pl-title">{{$t('about.learnt')}}</div>
 	  					<div>
 	  						<el-tag>C/C++</el-tag>
 	  						<el-tag>SQL</el-tag>
@@ -77,32 +77,32 @@
 			  </el-collapse-item>
 			  <el-collapse-item name="4">
 			  	<template slot="title">
-			      Hobby<img src="../assets/images/icon/hobby.png" class="hobby-icon">
+			      {{$t('about.Hobby')}}<img src="../assets/images/icon/hobby.png" class="hobby-icon">
 			    </template>
 			    <el-row>
 	  				<el-col :span="8" class="card">
 	  					<el-card>
 	  						<img src="../assets/images/about-cards/singing.jpg" class="card-img">
-	  						<div class="card-p">Listen to Music</div>
+	  						<div class="card-p">{{$t('about.music')}}</div>
 	  					</el-card>
 	  				</el-col>
 	  				<el-col :span="8" class="card">
 	  					<el-card>
 	  						<img src="../assets/images/about-cards/watchingsoccer.jpg" class="card-img">
-	  						<div class="card-p">Watch Soccer Games</div>
+	  						<div class="card-p">{{$t('about.soccer')}}</div>
 	  					</el-card>
 	  				</el-col>
 	  				<el-col :span="8" class="card">
 	  					<el-card>
 	  						<img src="../assets/images/about-cards/csgo.jpg" class="card-img">
-	  						<div class="card-p">Play Video Games</div>
+	  						<div class="card-p">{{$t('about.game')}}</div>
 	  					</el-card>
 	  				</el-col>
 	  			</el-row>
 			  </el-collapse-item>
 			  <el-collapse-item name="5">
 			  	<template slot="title">
-			      Social Media<img src="../assets/images/icon/social.png" class="hobby-icon">
+			      {{$t('about.social')}}<img src="../assets/images/icon/social.png" class="hobby-icon">
 			    </template>
 			    <el-row>
 	  				<el-col :span="4" class="social">
@@ -135,19 +135,23 @@
 
 <script>
 import {mapActions, mapGetters} from 'vuex';
-var completeSentence = "Hello!My name is Wenqian Zhao.Nice to meet you :) ";
 
 export default {
   data() {
     return {
     	activeName: '1',
     	subActiveName: '5',
-    	helloParagraph: 'H',
+    	helloParagraph: this.$i18n.locale === "en" ? "H" : "欢",
     	time: 1,
     };
   },
   methods: {
    	printHello: function() {
+   		if(this.$i18n.locale === "en"){
+   			var completeSentence = "Hello!My name is Wenqian Zhao.Nice to meet you :) ";
+   		} else {
+   			var completeSentence = "欢迎来到赵文谦的小站，点开下面的卡片，就能更好地认识博主哟 ：） ";
+   		}
    		var self = this;
 	  	setTimeout(function cycle(){ 
 	  		self.time++;
