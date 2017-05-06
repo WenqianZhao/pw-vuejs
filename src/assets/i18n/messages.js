@@ -61,6 +61,37 @@ const messages = {
 			game: "Play Video Games",
 			social: "Social Media",
 		},
+		account: {
+			Profile: "Profile",
+			cp: "Change Password",
+			Collection: "Collection",
+			profile: {
+				Username: "Username",
+				Email: "Email",
+				Role: "Role",
+				Firstname: "Firstname",
+				Lastname: "Lastname",
+				Age: "Age",
+				Gender: "Gender",
+				gender: {
+					Male: "Male",
+					Female: "Female",
+					Secret: "Secret"
+				},
+				button: {
+					Submit: "Submit",
+					Cancel: "Cancel",
+					Modify: "Modify Profile"
+				},
+				warn: {
+					Firstname: "Firstname should only contain letters.",
+					Lastname: "Lastname should only contain letters.",
+					Age: "Age should be between 0 and 150.",
+					message: "Error occurs when modifying your personal information."
+				},
+				success: "Successfully update your personal information.",
+			}
+		},
 
 	},
 	// Chinese
@@ -124,6 +155,37 @@ const messages = {
 			soccer: "看球赛",
 			game: "玩游戏",
 			social: "个人社交媒体",
+		},
+		account: {
+			Profile: "个人档案",
+			cp: "修改密码",
+			Collection: "收藏",
+			profile: {
+				Username: "用户名",
+				Email: "邮箱",
+				Role: "权限",
+				Firstname: "名",
+				Lastname: "姓",
+				Age: "年龄",
+				Gender: "性别",
+				gender: {
+					Male: "男",
+					Female: "女",
+					Secret: "保密"
+				},
+				button: {
+					Submit: "确定",
+					Cancel: "取消",
+					Modify: "修改个人资料"
+				},
+				warn: {
+					Firstname: "名字中只能包含中文或英文字符",
+					Lastname: "姓中只能包含中文或英文字符",
+					Age: "年龄应在0至150之间",
+					message: "在更新您的个人信息时发生错误，请稍后再试。"
+				},
+				success: "更新个人信息成功！",
+			}
 		},
 	}
 };

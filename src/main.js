@@ -60,16 +60,7 @@ const routes = [
   },
   {
     path: '/logout',
-    name: 'logout',
-    beforeEnter: (to, from, next) => {
-      // Logout
-      store.dispatch('RESET_USER_STATE');
-      // remove token
-      window.localStorage.removeItem('token');
-      next({
-        path: '/'
-      });
-    }
+    name: 'logout'
   },
   {
     path: '/user',
@@ -185,13 +176,33 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-    var token = window.localStorage.getItem('token');
-    if (store.state.user.token || token) {
-      var currToken = (store.state.user.token) ? store.state.user.token : token;
-      // verify token
-      jwt.verify(currToken, secret, function(err, decoded){
+  if(to.path === "/logout"){
+    // Logout
+    store.dispatch('RESET_USER_STATE');
+    // remove token
+    window.localStorage.removeItem('token');
+    console.log("logout");
+    next({
+      path: '/'
+    });
+  }
+
+  if(store.state.user.token) {
+    next();
+  }
+
+  var token = window.localStorage.getItem('token');
+  if (token) {
+    // verify token
+    jwt.verify(token, secret, function(err, decoded){
+      if (err) {
+        console.log("err: " + err.message);
+        next({
+          path: '/logout'
+        });
+      } else {
         if(decoded){
-          store.dispatch('SET_USER_STATE', {token: currToken, decoded: decoded})
+          store.dispatch('SET_USER_STATE', {token: token, decoded: decoded})
           .then((message) => {
             next();
           });
@@ -200,19 +211,20 @@ router.beforeEach((to, from, next) => {
             path: '/logout'
           });
         }
-      });
-    } else {
-      // Not logged in
-      next();
-    }
-})
+      }
+    });
+  } else {
+    // Not logged in
+    next();
+  }
+});
 
 // for different language
 const i18n = new VueI18n({
   locale: 'en', // set locale
   fallbackLocale: 'en',
   messages, // set locale messages
-})
+});
 
 /* eslint-disable no-new */
 new Vue({

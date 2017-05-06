@@ -36,7 +36,12 @@ const actions = {
 								userObj: {
 									username: decoded.username,
 									email: decoded.email,
-									role: decoded.role
+									role: decoded.role,
+									firstname: decoded.firstname,
+									lastname: decoded.lastname,
+									age: decoded.age,
+									gender: decoded.gender,
+									imgUrl: decoded.imgUrl,
 								},
 								status: null
 							}
@@ -89,7 +94,12 @@ const actions = {
 								userObj: {
 									username: decoded.username,
 									email: decoded.email,
-									role: decoded.role
+									role: decoded.role,
+									firstname: decoded.firstname,
+									lastname: decoded.lastname,
+									age: decoded.age,
+									gender: decoded.gender,
+									imgUrl: decoded.imgUrl,
 								},
 								status: null
 							}
@@ -127,7 +137,12 @@ const actions = {
 				userObj: {
 					username: decoded.username,
 					email: decoded.email,
-					role: decoded.role
+					role: decoded.role,
+					firstname: decoded.firstname,
+					lastname: decoded.lastname,
+					age: decoded.age,
+					gender: decoded.gender,
+					imgUrl: decoded.imgUrl,
 				},
 				status: null
 			};
@@ -138,6 +153,52 @@ const actions = {
 	},
 	RESET_USER_STATE: function ({commit}) {
 		commit('RESET_USER_STATE');
+	},
+	// Modify personal information
+	MODIFY_PERSONAL_INFO: function ({commit}, postData) {
+		return new Promise( (resolve, reject) => {
+			axios.post(process.env.SERVER_ENV + 'user/modify', postData).then(function (response) {
+				// If successfully logged in
+				if (response.data.response.status_code === 1009) {
+					var data = response.data.response.data;
+					jwt.verify(data.token, secret, function(err, decoded){
+						if(err){
+							console.log(err);
+						}else{
+							// store the token in localstorage
+							window.localStorage.setItem('token', data.token);
+							var userData = {
+								token: data.token,
+								// contains id, username, email and role
+								userObj: {
+									username: decoded.username,
+									email: decoded.email,
+									role: decoded.role,
+									firstname: decoded.firstname,
+									lastname: decoded.lastname,
+									age: decoded.age,
+									gender: decoded.gender,
+									imgUrl: decoded.imgUrl,
+								},
+								status: null
+							}
+							commit('SET_USER_DATA', userData);
+							resolve('success');
+						}
+					});
+				} else {
+					var userData = {
+						token: null,
+						userObj: null,
+						status: "Error occurs when update a user's info."
+					};
+					commit('SET_USER_DATA', userData);
+					resolve('failure');
+				}
+			});
+		}).catch(function (error) {
+			reject(error);
+		});
 	},
 };
 
