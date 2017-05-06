@@ -183,20 +183,21 @@ router.beforeEach((to, from, next) => {
             .then((message) => {
               next();
             });
-          }
-          // If user is normal user
-          if(to.matched.some(record => record.meta.requiresAdmin)) {
-            store.dispatch('SET_USER_STATE', {token: token, decoded: decoded})
-            .then((message) => {
-              next({
-                path: '/'
-              });
-            });
           } else {
-            store.dispatch('SET_USER_STATE', {token: token, decoded: decoded})
-            .then((message) => {
-              next();
-            });
+            // If user is normal user
+            if(to.matched.some(record => record.meta.requiresAdmin)) {
+              store.dispatch('SET_USER_STATE', {token: token, decoded: decoded})
+              .then((message) => {
+                next({
+                  path: '/'
+                });
+              });
+            } else {
+              store.dispatch('SET_USER_STATE', {token: token, decoded: decoded})
+              .then((message) => {
+                next();
+              });
+            }
           }
         } else {
           next({
