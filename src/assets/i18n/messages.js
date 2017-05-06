@@ -90,7 +90,13 @@ const messages = {
 					message: "Error occurs when modifying your personal information."
 				},
 				success: "Successfully update your personal information.",
-			}
+			},
+			changePassword: {
+				oldpwd: "Please input your old password: ",
+				newpwd: "Please input your new password: ",
+				confirmnewpwd: "Please confirm your new password: ",
+				success: "Successfully changed your password."
+			},
 		},
 
 	},
@@ -185,7 +191,13 @@ const messages = {
 					message: "在更新您的个人信息时发生错误，请稍后再试。"
 				},
 				success: "更新个人信息成功！",
-			}
+			},
+			changePassword: {
+				oldpwd: "请输入您的密码： ",
+				newpwd: "请输入新的密码： ",
+				confirmnewpwd: "请确认新的密码： ",
+				success: "修改密码成功！"
+			},
 		},
 	}
 };

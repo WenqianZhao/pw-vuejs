@@ -158,7 +158,7 @@ const actions = {
 	MODIFY_PERSONAL_INFO: function ({commit}, postData) {
 		return new Promise( (resolve, reject) => {
 			axios.post(process.env.SERVER_ENV + 'user/modify', postData).then(function (response) {
-				// If successfully logged in
+				// If successfully modified personal info
 				if (response.data.response.status_code === 1009) {
 					var data = response.data.response.data;
 					jwt.verify(data.token, secret, function(err, decoded){
@@ -191,6 +191,42 @@ const actions = {
 						token: null,
 						userObj: null,
 						status: "Error occurs when update a user's info."
+					};
+					commit('SET_USER_DATA', userData);
+					resolve('failure');
+				}
+			});
+		}).catch(function (error) {
+			reject(error);
+		});
+	},
+	CHANGE_PASSWORD: function ({commit, state}, postData) {
+		return new Promise( (resolve, reject) => {
+			axios.post(process.env.SERVER_ENV + 'user/changepwd', postData).then(function (response) {
+				// If successfully changed password
+				if (response.data.response.status_code === 1011) {
+					var data = response.data.response.data;
+					jwt.verify(data.token, secret, function(err, decoded){
+						if(err){
+							console.log(err);
+						}else{
+							// store the token in localstorage
+							window.localStorage.setItem('token', data.token);
+							var userData = {
+								token: data.token,
+								// userObj remains the same
+								userObj: state.userObj,
+								status: null
+							}
+							commit('SET_USER_DATA', userData);
+							resolve('success');
+						}
+					});
+				} else {
+					var userData = {
+						token: null,
+						userObj: null,
+						status: "Error occurs when changing password."
 					};
 					commit('SET_USER_DATA', userData);
 					resolve('failure');

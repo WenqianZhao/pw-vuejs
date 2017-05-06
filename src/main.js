@@ -54,6 +54,11 @@ const routes = [
     canReuse: false,
   },
   {
+    path: '/signup',
+    name: 'signup',
+    component: Signup,
+  },
+  {
     path: '/login',
     name: 'login',
     component: Login,
@@ -66,6 +71,7 @@ const routes = [
     path: '/user',
     name: 'account',
     component: Account,
+    meta: { requiresAuth: true },
     children: [
       {
         path: 'profile',
@@ -117,14 +123,10 @@ const routes = [
     component: About,
   },
   {
-    path: '/signup',
-    name: 'signup',
-    component: Signup,
-  },
-  {
     path: '/admin',
     name: 'admin',
     component: Admin,
+    meta: { requiresAdmin: true },
     children:[
       {
         path: 'posts',
@@ -134,40 +136,16 @@ const routes = [
           {
             path: 'create',
             name: 'adminPostCreate',
-            component: AdminPostCreate
+            component: AdminPostCreate,
           },
           {
             path: 'getall',
             name: 'adminPostGetAll',
-            component: AdminPostGetAll
+            component: AdminPostGetAll,
           }
         ]
       }
     ],
-    // Only admin can access this page
-    // beforeEnter: (to, from, next) => {
-    //   var token = window.localStorage.getItem('token');
-
-    //   if (store.state.user.token || token) {
-    //     var currToken = (store.state.user.token) ? store.state.user.token : token;
-    //     // verify token
-    //     jwt.verify(currToken, secret, function(err, decoded){
-    //       if(!err && decoded.role === "Admin"){
-    //         next();
-    //       }else{
-    //         // not admin, go back to home
-    //         next({
-    //           path: '/'
-    //         });
-    //       }
-    //     });
-    //   } else {
-    //     // not admin, go back to home
-    //     next({
-    //       path: '/'
-    //     });
-    //   }
-    // },
   },
 ];
 
@@ -187,12 +165,9 @@ router.beforeEach((to, from, next) => {
     });
   }
 
-  if(store.state.user.token) {
-    next();
-  }
-
   var token = window.localStorage.getItem('token');
-  if (token) {
+  if (store.state.user.token || token) {
+    token = (store.state.user.token) ? store.state.user.token : token;
     // verify token
     jwt.verify(token, secret, function(err, decoded){
       if (err) {
@@ -202,10 +177,27 @@ router.beforeEach((to, from, next) => {
         });
       } else {
         if(decoded){
-          store.dispatch('SET_USER_STATE', {token: token, decoded: decoded})
-          .then((message) => {
-            next();
-          });
+          // If user is admin
+          if(decoded.role === "Admin") {
+            store.dispatch('SET_USER_STATE', {token: token, decoded: decoded})
+            .then((message) => {
+              next();
+            });
+          }
+          // If user is normal user
+          if(to.matched.some(record => record.meta.requiresAdmin)) {
+            store.dispatch('SET_USER_STATE', {token: token, decoded: decoded})
+            .then((message) => {
+              next({
+                path: '/'
+              });
+            });
+          } else {
+            store.dispatch('SET_USER_STATE', {token: token, decoded: decoded})
+            .then((message) => {
+              next();
+            });
+          }
         } else {
           next({
             path: '/logout'
@@ -214,8 +206,14 @@ router.beforeEach((to, from, next) => {
       }
     });
   } else {
-    // Not logged in
-    next();
+    if(to.matched.some(record => record.meta.requiresAdmin) || to.matched.some(record => record.meta.requiresAuth)) {
+      next({
+        path: '/login'
+      })
+    } else {
+      // Not logged in
+      next();
+    }
   }
 });
 

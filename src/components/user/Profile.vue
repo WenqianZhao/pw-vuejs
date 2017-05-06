@@ -81,7 +81,6 @@ export default {
               type: 'success'
             });
             this.modifying = false;
-            console.log(this.userObj);
           } else if (message === 'failure') {
             this.$message({
               message: this.$i18n.t('account.profile.warn.message'),
