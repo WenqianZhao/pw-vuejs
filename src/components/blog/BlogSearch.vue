@@ -2,7 +2,7 @@
   <div class="blog-search">
     <el-row v-if="this.findPosts">
       <el-row>
-        <p>Here are the posts that contains "<i>{{searchContent}}</i> ":</p>
+        <p>{{$t('blog.onsearch', {search: searchContent})}}</p>
       </el-row>
 			<blog-abstract-component 
 				v-for="post in this.allPosts" 
@@ -49,7 +49,12 @@ export default {
           this.searchContent = searchStr;
         } else {
           this.findPosts = false;
-          this.failureMessage = message;
+          var currLocale = this.$i18n.locale;
+          if(currLocale === 'cn') {
+            this.failureMessage = message.cn;
+          } else {
+            this.failureMessage = message.en;
+          }
         }
         this.$store.dispatch('SET_LOADING_ACTION', false);
       });

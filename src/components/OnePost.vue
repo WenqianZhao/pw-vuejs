@@ -8,13 +8,13 @@
           </el-row>
           <el-row>
             <el-col :span="5">
-              <p class="one-post-author">Author: <i>{{currentPost.author.username}}</i></p>
+              <p class="one-post-author">{{$t('blog.bac.author')}}<i>{{currentPost.author.username}}</i></p>
             </el-col>
             <el-col :span="6">
-              <p class="one-post-time">Created At: <i>{{currentPost.createdAt.split('T')[0]}}</i></p>
+              <p class="one-post-time">{{$t('blog.onepost.created')}}<i>{{currentPost.createdAt.split('T')[0]}}</i></p>
             </el-col>
             <el-col :span="4">
-              <p class="one-post-time">Clicks: <i>{{currentPost.clicks}}</i></p>
+              <p class="one-post-time">{{$t('blog.onepost.clicks')}}<i>{{currentPost.clicks}}</i></p>
             </el-col>
           </el-row>
           <el-row class="one-post-content">
@@ -49,7 +49,7 @@
             </el-col>
           </el-row>
           <el-row class="post-comments">
-            <h3>Comments:</h3>
+            <h3>{{$t('blog.onepost.comments')}}</h3>
 
           </el-row>
         </div>

@@ -10,7 +10,7 @@
 		  		</el-col>
 		  		<el-col :span="5" :offset="1" class="tool-bar">
 		  			<el-row class="search-bar">
-		 					<p>Search For Posts:</p>
+		 					<p>{{$t('blog.search')}}</p>
 							<el-input
 							  placeholder="Javascript"
 							  icon="search"
@@ -20,7 +20,7 @@
 		  			</el-row>
 		  			<el-row class="all-tags">
 							<el-row>
-								<p>Tags:</p>
+								<p>{{$t('blog.tags')}}</p>
 							</el-row>
 							<el-row>
 								<el-tag v-for="tag in this.allTags" :key="tag.id" class="tag">

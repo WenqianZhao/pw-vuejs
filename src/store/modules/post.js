@@ -60,13 +60,18 @@ const actions = {
 					commit('SET_ALL_POSTS', {allPosts: response.data.response.data});
 					resolve('success');
 				} else {
-					var status = "";
+					var status = {
+						en: "",
+						cn: "",
+					};
 					switch (response.data.response.status_code) {
 						case 1519:
-							status = "No posts matched.";
+							status.en = "No posts matched.";
+							status.cn = "没有找到匹配的文章。"
 							break;
 						default:
-							status = "Error occurs when searching for posts.";
+							status.en = "Error occurs when searching for posts.";
+							status.cn = "搜索文章时出现未知错误。"
 					};
 					resolve(status);
 				}

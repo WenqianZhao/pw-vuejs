@@ -98,7 +98,22 @@ const messages = {
 				success: "Successfully changed your password."
 			},
 		},
+		blog: {
+			search: "Search For Posts: ",
+			tags: "Tags: ",
+			bac: {
+				author: "Author: ",
+				readmore: "Read More...",
+			},
+			onepost: {
+				created: "Created At: ",
+				clicks: "Clicks: ",
+				comments: "Comments: ",
+			},
+			bytag: "Here are the posts with tag '{tag}' :",
+			onsearch: "Here are the posts that contains '{search}' :",
 
+		},
 	},
 	// Chinese
 	cn: {
@@ -198,6 +213,22 @@ const messages = {
 				confirmnewpwd: "请确认新的密码： ",
 				success: "修改密码成功！"
 			},
+		},
+		blog: {
+			search: "搜索文章：",
+			tags: "标签：",
+			bac: {
+				author: "作者：",
+				readmore: "阅读更多...",
+			},
+			onepost: {
+				created: "创建于：",
+				clicks: "点击量：",
+				comments: "评论：",
+			},
+			bytag: "下面是所有拥有标签‘{tag}’的文章：",
+			onsearch: "下面是所有包含‘{search}’的文章：",
+
 		},
 	}
 };

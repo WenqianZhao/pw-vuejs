@@ -1,7 +1,7 @@
 <template>
   <div class="blog-by-tag">
     <el-row>
-      <p>Here are the posts with tag "<i>{{currentTag}}</i> ":</p>
+      <p>{{$t('blog.bytag', {tag: currentTag})}}</p>
     </el-row>
 		<blog-abstract-component 
 			v-for="post in this.allPosts" 
@@ -33,6 +33,7 @@ export default {
   methods: {
   	fetchPostsByTag () {
       var tag = this.$route.params.name;
+      this.currentTag = tag;
       this.$store.dispatch('SET_LOADING_ACTION', true);
       this.$store.dispatch('GET_POSTS_BY_TAG', { tag : tag});
     }

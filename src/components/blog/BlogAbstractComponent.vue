@@ -4,13 +4,13 @@
       <h2 class="blog-title"><router-link :to="{name:'onePost', params:{ id : this.postComputedID}}">{{post.post_title}}</router-link></h2>
     </el-row>
     <el-row>
-      <p class="blog-author">Author: <i>{{post.post_author.username}}</i></p>
+      <p class="blog-author">{{$t('blog.bac.author')}}<i>{{post.post_author.username}}</i></p>
     </el-row>
     <el-row class="blog-abstract">
       <div v-html="compiledMarkdown"></div>
     </el-row>
     <el-row class="readmore">
-      <router-link :to="{name:'onePost', params:{ id : this.postComputedID}}">Read More...</router-link>
+      <router-link :to="{name:'onePost', params:{ id : this.postComputedID}}">{{$t('blog.bac.readmore')}}</router-link>
     </el-row>
     <el-row class="blog-tags" v-if="this.byTag">
       <el-tag v-for="tag in post.post_tags" :key="tag.id">
