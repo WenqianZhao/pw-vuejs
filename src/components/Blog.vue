@@ -1,5 +1,5 @@
 <template>
-  <div class="blog" v-loading.fullscreen.lock="loading&&loadingTag" element-loading-text="Loading...">
+  <div class="blog" v-loading.fullscreen.lock="loading&&loadingTag&&loadingTopPosts" element-loading-text="Loading...">
   	<el-row type="flex" justify="center">
   		<el-col :span="18">
   			<el-row>
@@ -28,6 +28,13 @@
 					      </el-tag>
 							</el-row>
 		  			</el-row>
+            <el-row class="top-posts">
+              <p class="top-title">{{$t('blog.top')}}</p>
+              <p v-for="(post, index) in this.topPosts" :key="post.post_id" class="top-posts-p">{{index+1}}.
+                <router-link :to="{name:'onePost', params:{ id : postComputedID(post.post_id, post.post_title)}}">{{post.post_title}}</router-link>
+                <span class="top-posts-clicks">{{$t('blog.clicks')}}{{post.post_clicks}}</span>
+              </p>
+            </el-row>
 		  		</el-col>
   			</el-row>
   		</el-col>
@@ -46,7 +53,9 @@ export default {
   computed: mapGetters({
   	loading: 'loading',
   	loadingTag: 'loadingTag',
+    loadingTopPosts: 'loadingTopPosts',
   	allTags: 'allTags',
+    topPosts: 'topPosts',
   }),
   data() {
     return {
@@ -55,15 +64,24 @@ export default {
     };
   },
   methods: {
-  	handleIconClick(ev) {
+  	handleIconClick (ev) {
   		// do Base64 encoding
       var encodedString = new Buffer(this.searchInput).toString('base64');
   		this.$router.push({ name: 'blogSearch', params: { content: encodedString }});
-  	}
+  	},
+    postComputedID (post_id, post_title) {
+      // use id + '&&' + title to distinguish different posts
+      var idAndTitle = post_id.toString() + "&&" + post_title;
+      // do Base64 encoding
+      var encodedString = new Buffer(idAndTitle).toString('base64');
+      return encodedString;
+    }
   },
   created() {
   	this.$store.dispatch('SET_LOADING_TAG_ACTION', true);
+    this.$store.dispatch('SET_LOADING_TOP_POSTS_ACTION', true);
   	this.$store.dispatch('GET_ALL_TAGS');
+    this.$store.dispatch('GET_TOP_POSTS');
   }
 }
 </script>

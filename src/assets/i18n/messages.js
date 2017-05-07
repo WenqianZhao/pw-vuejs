@@ -112,7 +112,8 @@ const messages = {
 			},
 			bytag: "Here are the posts with tag '{tag}' :",
 			onsearch: "Here are the posts that contains '{search}' :",
-
+			clicks: "  Clicks: ",
+			top: "Top 5 posts: ",
 		},
 	},
 	// Chinese
@@ -228,7 +229,8 @@ const messages = {
 			},
 			bytag: "下面是所有拥有标签‘{tag}’的文章：",
 			onsearch: "下面是所有包含‘{search}’的文章：",
-
+			clicks: "  点击量：",
+			top: "最受欢迎的5篇博文：",
 		},
 	}
 };

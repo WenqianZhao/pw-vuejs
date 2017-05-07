@@ -5,8 +5,10 @@ const state = {
 	currentPost: {},
 	allPosts: [],
 	allTags: [],
+	topPosts: [],
 	loading: false,
 	loadingTag: false,
+	loadingTopPosts: false,
 	likeCurrent: false,
 };
 
@@ -15,8 +17,10 @@ const getters = {
 	currentPost: state => state.currentPost,
 	allPosts: state => state.allPosts,
 	allTags: state => state.allTags,
+	topPosts: state => state.topPosts,
 	loading: state => state.loading,
 	loadingTag: state => state.loadingTag,
+	loadingTopPosts: state => state.loadingTopPosts,
 	likeCurrent: state => state.likeCurrent,
 };
 
@@ -89,6 +93,16 @@ const actions = {
 		});
 	},
 
+	GET_TOP_POSTS: function ({commit}) {
+		axios.get(process.env.SERVER_ENV + 'posts/gettop').then(function (response) {
+			var postData = response.data.response.data;
+			commit('SET_TOP_POSTS', {topPosts: postData});
+			commit('SET_LOADING_TOP_POSTS', {flag: false});
+		}).catch(function(err){
+			console.log(err);
+		});
+	},
+
 	GET_ALL_TAGS: function ({commit}) {
 		axios.get(process.env.SERVER_ENV + 'tags/getall').then(function (response) {
 			var postData = response.data.response.data;
@@ -136,6 +150,10 @@ const actions = {
 	SET_LOADING_TAG_ACTION: function ({commit}, flag) {
 		commit('SET_LOADING_TAG', {flag: flag});
 	},
+
+	SET_LOADING_TOP_POSTS_ACTION: function ({commit}, flag) {
+		commit('SET_LOADING_TOP_POSTS', {flag: flag});
+	},
 };
 
 const mutations = {
@@ -145,6 +163,10 @@ const mutations = {
 
 	SET_ALL_POSTS: function (state, {allPosts}) {
 		state.allPosts = allPosts;
+	},
+
+	SET_TOP_POSTS: function (state, {topPosts}) {
+		state.topPosts = topPosts;
 	},
 
 	SET_ALL_TAGS: function (state, {allTags}) {
@@ -169,6 +191,10 @@ const mutations = {
 
 	SET_LOADING_TAG: function (state, {flag}) {
 		state.loadingTag = flag;
+	},
+
+	SET_LOADING_TOP_POSTS: function (state, {flag}) {
+		state.loadingTopPosts = flag;
 	},
 }
 
