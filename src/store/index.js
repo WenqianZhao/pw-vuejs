@@ -7,6 +7,7 @@ import * as getters from './getters';
 // Import modules
 import user from './modules/user';
 import post from './modules/post';
+import comment from './modules/comment';
 
 Vue.use(Vuex);
 
@@ -15,6 +16,7 @@ export default new Vuex.Store({
   getters,
   modules: {
   	user,
-  	post
+  	post,
+  	comment,
   },
 });

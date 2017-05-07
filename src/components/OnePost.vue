@@ -1,5 +1,5 @@
 <template>
-  <div class="one-post-outer" v-loading.fullscreen.lock="loading" element-loading-text="Loading...">
+  <div class="one-post-outer" v-loading.fullscreen.lock="loading&&commentLoading" element-loading-text="Loading...">
   	<el-row type="flex" justify="center">
   		<el-col :span="16">
   			<div class="one-post" v-if="this.currentPost.author">
@@ -50,7 +50,22 @@
           </el-row>
           <el-row class="post-comments">
             <h3>{{$t('blog.onepost.comments')}}</h3>
-
+            <div class="comment-textarea" v-if="userObj.username">
+              <p>{{userObj.username}}:</p>
+              <el-input
+                type="textarea"
+                :rows="3"
+                :placeholder="placeholder"
+                v-model="textarea"
+                class="text-input">
+              </el-input>
+              <el-button type="primary" @click="onSubmit">{{$t('login.Submit')}}</el-button>
+              <el-button @click="onReset">{{$t('login.Reset')}}</el-button>
+            </div>
+            <ul class="root-comments" v-if="allRootComments.length">
+              <comment-component v-for="comment in allRootComments" :key="comment.id" :id="comment.id"></comment-component>
+            </ul>
+            <p v-else>{{$t('blog.onepost.comment.none')}}</p>
           </el-row>
         </div>
   		</el-col>
@@ -59,6 +74,8 @@
 </template>
 
 <script>
+import CommentComponent from './comment/Comment';
+
 var marked = require('marked');
 marked.setOptions({
   highlight: function (code) {
@@ -67,9 +84,15 @@ marked.setOptions({
 },{ sanitize: true });
 
 export default {
+  components: {
+    CommentComponent,
+  },
   computed: {
     loading: function () {
       return this.$store.getters.loading;
+    },
+    commentLoading: function () {
+      return this.$store.getters.commentLoading;
     },
     currentPost: function () {
       return this.$store.getters.currentPost;
@@ -82,9 +105,18 @@ export default {
         return marked(this.currentPost.content);
       }
     },
+    allRootComments: function () {
+      return this.$store.getters.allRootComments;
+    },
+    userObj: function () {
+      return this.$store.getters.userObj;
+    },
   },
   data() {
     return {
+      textarea: "",
+      placeholder: this.$i18n.t("blog.onepost.comment.placeholder"),
+      postID: "",
     };
   },
   methods: {
@@ -93,8 +125,11 @@ export default {
       // decode string
       var decodedString = new Buffer(encodedString, 'base64').toString('ascii');
       var postID = decodedString.split('&&')[0];
+      this.postID = postID;
       this.$store.dispatch('SET_LOADING_ACTION', true);
+      this.$store.dispatch('SET_COMMENT_LOADING_ACTION', true);
       this.$store.dispatch('GET_ONE_POST', {postID: postID});
+      this.$store.dispatch('GET_ALL_COMMENTS_BY_POSTID', {postID: postID});
     },
     changeLike () {
       this.like = !this.like;
@@ -103,6 +138,31 @@ export default {
     shareTo () {
 
     },
+    onSubmit () {
+      var postData = {
+        email: this.userObj.email,
+        postID: this.postID,
+        content: this.textarea
+      };
+      this.$store.dispatch('SET_COMMENT_LOADING_ACTION', true);
+      this.$store.dispatch('ADD_ROOT_COMMENT', postData).then( (message) => {
+        if (message === "success") {
+          this.$message({
+            message: this.$i18n.t('comment.add.success'),
+            type: 'success'
+          });
+          this.textarea = "";
+        } else {
+          this.$message({
+            message: this.$i18n.t('comment.add.failure'),
+            type: 'warn'
+          });
+        }
+      });
+    },
+    onReset () {
+      this.textarea = "";
+    }
   },
   watch: {
     '$route': 'fetchOnePost',

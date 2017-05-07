@@ -109,12 +109,23 @@ const messages = {
 				created: "Created At: ",
 				clicks: "Clicks: ",
 				comments: "Comments: ",
+				comment: {
+					none: "No comment yet, you can be the first one :)",
+					placeholder: "Please input the comment... ",
+				}
 			},
 			bytag: "Here are the posts with tag '{tag}' :",
 			onsearch: "Here are the posts that contains '{search}' :",
 			clicks: "  Clicks: ",
 			top: "Top 5 posts: ",
 		},
+		comment: {
+			collapsed: " collapsed",
+			add: {
+				success: "Successfully add a comment!",
+				failure: "Fail to add a comment. Please try again.",
+			},
+		}
 	},
 	// Chinese
 	cn: {
@@ -226,12 +237,23 @@ const messages = {
 				created: "创建于：",
 				clicks: "点击量：",
 				comments: "评论：",
+				comment: {
+					none: "还没人评论呢，快来抢沙发吧！",
+					placeholder: "请输入评论",
+				}
 			},
 			bytag: "下面是所有拥有标签‘{tag}’的文章：",
 			onsearch: "下面是所有包含‘{search}’的文章：",
 			clicks: "  点击量：",
 			top: "最受欢迎的5篇博文：",
 		},
+		comment: {
+			collapsed: " 点击查看",
+			add: {
+				success: "留言成功！",
+				failure: "留言失败，请稍后再试。",
+			},
+		}
 	}
 };
 
