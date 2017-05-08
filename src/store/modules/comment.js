@@ -46,6 +46,24 @@ const actions = {
 		});
 	},
 
+	UPDATE_COMMENT_LIKE: function ({commit}, postData) {
+		axios.post(process.env.SERVER_ENV + 'comment/update/like', postData).then(function (response) {
+			var updatedComment = response.data.response.data;
+			commit('SET_ONE_COMMENT_BY_ID', {updatedComment: updatedComment});
+		}).catch(function(err){
+			console.log(err);
+		});
+	},
+
+	UPDATE_COMMENT_DISLIKE: function ({commit}, postData) {
+		axios.post(process.env.SERVER_ENV + 'comment/update/dislike', postData).then(function (response) {
+			var updatedComment = response.data.response.data;
+			commit('SET_ONE_COMMENT_BY_ID', {updatedComment: updatedComment});
+		}).catch(function(err){
+			console.log(err);
+		});
+	},
+
 	SET_COMMENT_LOADING_ACTION: function ({commit}, flag) {
 		commit('SET_COMMENT_LOADING', {flag: flag});
 	},
@@ -74,6 +92,10 @@ const mutations = {
 
 	SET_ALL_ROOT_COMMENTS: function (state, {allRootComments}) {
 		state.allRootComments = allRootComments;
+	},
+
+	SET_ONE_COMMENT_BY_ID: function (state, {updatedComment}) {
+		state.allComments[updatedComment.id] = updatedComment;
 	},
 }
 

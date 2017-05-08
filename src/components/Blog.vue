@@ -1,5 +1,5 @@
 <template>
-  <div class="blog" v-loading.fullscreen.lock="loading&&loadingTag&&loadingTopPosts" element-loading-text="Loading...">
+  <div class="blog" v-loading.fullscreen.lock="loading" element-loading-text="Loading...">
   	<el-row type="flex" justify="center">
   		<el-col :span="18">
   			<el-row>

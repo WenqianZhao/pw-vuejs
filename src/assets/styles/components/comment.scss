@@ -1,0 +1,32 @@
+.comment-item {
+	.comment-by {
+
+	}
+
+	.text {
+
+	}
+
+	.like-and-dislike {
+		margin: 0.2em 0 0.2em 0;
+		.icon {
+			height: 1.2em;
+			width: 1.2em;
+			margin-right: 0.5em;
+			cursor: pointer;
+		}
+
+		.like {
+			color: #0c5ad6;
+		}
+
+		.dislike {
+			color: #ba110b;
+		}
+
+		span {
+			font-size: 1.2em;
+			margin-right: 1em;
+		}
+	}
+}
