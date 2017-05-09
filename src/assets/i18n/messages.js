@@ -125,6 +125,11 @@ const messages = {
 				success: "Successfully add a comment!",
 				failure: "Fail to add a comment. Please try again.",
 			},
+			reply: "reply",
+			reply2: " reply",
+			replies: " replies",
+			cancel: "Cancel",
+			commentOn: "Commented on:",
 		}
 	},
 	// Chinese
@@ -253,6 +258,11 @@ const messages = {
 				success: "留言成功！",
 				failure: "留言失败，请稍后再试。",
 			},
+			reply: "回复",
+			reply2: "条回复",
+			replies: "条回复",
+			cancel: "取消",
+			commentOn: "评论于：",
 		}
 	}
 };

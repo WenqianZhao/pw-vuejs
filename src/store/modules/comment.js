@@ -46,6 +46,27 @@ const actions = {
 		});
 	},
 
+	ADD_CHAIN_COMMENT: function ({commit}, postData) {
+		return new Promise( (resolve, reject) => {
+			axios.post(process.env.SERVER_ENV + 'comments/add/chain', postData).then(function (response) {
+				if (response.data.response.status_code === 2209) {
+					var allComments = response.data.response.data;
+					var allRootComments = allComments.filter(function(comment){
+						return comment.isRoot === true;
+					});
+					commit('SET_ALL_COMMENTS', {allComments: allComments});
+					commit('SET_ALL_ROOT_COMMENTS', {allRootComments: allRootComments});
+					commit('SET_COMMENT_LOADING', {flag: false});
+					resolve("success");
+				} else {
+					resolve("failure");
+				}
+			});
+		}).catch(function (error) {
+			reject(error);
+		});
+	},
+
 	UPDATE_COMMENT_LIKE: function ({commit}, postData) {
 		axios.post(process.env.SERVER_ENV + 'comment/update/like', postData).then(function (response) {
 			var updatedComment = response.data.response.data;

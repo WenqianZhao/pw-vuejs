@@ -1,6 +1,8 @@
 .comment-item {
 	.comment-by {
-
+		.created-at {
+			font-size: 0.5em;
+		}
 	}
 
 	.text {
@@ -27,6 +29,38 @@
 		span {
 			font-size: 1.2em;
 			margin-right: 1em;
+		}
+	}
+
+	.reply {
+		margin-bottom: 0.5em;
+		a {
+			cursor: pointer;
+			color: #8f9193;
+		}
+
+		a:hover {
+			color: #5f6163;
+		}
+	}
+
+	.reply-box {
+		padding: 0.2em 0 0.5em 0;
+		.text-input{
+			margin-bottom: 0.6em;
+		}
+	}
+
+	.toggle {
+		margin-bottom: 1em;
+
+		a {
+			cursor: pointer;
+		}
+
+		.open {
+			padding: 0;
+			background-color: transparent;
 		}
 	}
 }

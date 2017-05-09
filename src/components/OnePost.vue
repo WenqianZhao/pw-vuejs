@@ -63,7 +63,7 @@
               <el-button @click="onReset">{{$t('login.Reset')}}</el-button>
             </div>
             <ul class="root-comments" v-if="allRootComments.length">
-              <comment-component v-for="comment in allRootComments" :key="comment.id" :id="comment.id"></comment-component>
+              <comment-component v-for="comment in allRootComments" :key="comment.id" :id="comment.id" :postID="postID"></comment-component>
             </ul>
             <p v-else>{{$t('blog.onepost.comment.none')}}</p>
           </el-row>

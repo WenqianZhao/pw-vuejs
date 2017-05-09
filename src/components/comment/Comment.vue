@@ -2,27 +2,39 @@
   <li v-if="comment" class="comment-item">
     <div class="comment-by">
       {{comment.commentby.username}}
+      <span class="created-at">{{$t('comment.commentOn') + " " + comment.createdAt}}</span>
     </div>
     <div class="text" v-html="compiledMarkdown"></div>
     <div class="like-and-dislike">
       <img class="icon" src="../../assets/images/icon/like.png" @click="like"><span :class="{ like : liked}">{{likes}}</span>
       <img class="icon" src="../../assets/images/icon/dislike.png" @click="dislike"><span :class="{ dislike : disliked}">{{dislikes}}</span>
     </div>
-    <div class="reply">
+    <div class="reply" v-if="userObj.username">
       <el-row>
         <el-col :span="6">
-          <a @click="reply"></a>
+          <a @click="reply">{{$t('comment.reply')}}</a>
         </el-col>
       </el-row>
     </div>
-    <div class="toggle" :class="{ open }" v-if="comment.replytocomment && comment.replytocomment.length">
+    <div class="reply-box" v-if="replying">
+      <el-input
+        type="textarea"
+        :rows="3"
+        :placeholder="placeholder"
+        v-model="textarea"
+        class="text-input">
+      </el-input>
+      <el-button type="primary" @click="onSubmit">{{$t('login.Submit')}}</el-button>
+      <el-button @click="onCancel">{{$t('comment.cancel')}}</el-button>
+    </div>
+    <div class="toggle" :class="{ open : open }" v-if="comment.replytocomment && comment.replytocomment.length">
       <a @click="open = !open">{{
         open
             ? '[-]'
-            : '[+] ' + pluralize(comment.replytocomment.length) + this.$18n.t('comment.collapsed')
+            : '[+] ' + pluralize(comment.replytocomment.length) + this.$i18n.t('comment.collapsed')
       }}</a>
       <ul class="comment-children" v-show="open">
-        <comment-component v-for="id in comment.replytocomment" :key="id" :id="id"></comment-component>
+        <comment-component v-for="subcomment in comment.replytocomment" :key="subcomment.id" :id="subcomment.id" :postID="postID"></comment-component>
       </ul>
     </div>
   </li>
@@ -49,25 +61,27 @@ export default {
     },
     comment: function () {
       return this.allComments[this.id];
-    }
+    },
+    userObj: function () {
+      return this.$store.getters.userObj;
+    },
   },
-  props: ['id'],
+  props: ['id','postID'],
   data() {
     return {
       open: true,
       liked: false,
       disliked: false,
+      replying: false,
       likes: 0,
       dislikes: 0,
+      textarea: "",
+      placeholder: this.$i18n.t("blog.onepost.comment.placeholder"),
     };
   },
   methods: {
     pluralize(n) {
-      if(this.$i18n.locale === "en") {
-        return n + (n === 1 ? ' reply' : ' replies');
-      } else if (this.$18n.locale === "cn") {
-        return n + "条回复";
-      }
+      return n + (n === 1 ? this.$i18n.t('comment.reply2') : this.$i18n.t('comment.replies'));
     },
     like() {
       if(this.disliked){
@@ -88,8 +102,39 @@ export default {
       }
     },
     reply() {
-
+      this.replying = !this.replying;
     },
+    onSubmit () {
+      var postData = {
+        email: this.userObj.email,
+        postID: this.postID,
+        commentID: this.id,
+        content: this.textarea
+      };
+      console.log(postData);
+      this.$store.dispatch('SET_COMMENT_LOADING_ACTION', true);
+      this.$store.dispatch('ADD_CHAIN_COMMENT', postData).then( (message) => {
+        if (message === "success") {
+          this.textarea = "";
+          this.replying = false;
+          this.$message({
+            message: this.$i18n.t('comment.add.success'),
+            type: 'success'
+          });
+          this.$nextTick(function(){
+          });
+        } else {
+          this.$message({
+            message: this.$i18n.t('comment.add.failure'),
+            type: 'warn'
+          });
+        }
+      });
+    },
+    onCancel () {
+      this.replying = false;
+      this.textarea = "";
+    }
   },
   watch: {
     allComments: function(val){
