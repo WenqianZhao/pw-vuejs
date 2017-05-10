@@ -59,9 +59,6 @@ export default {
     allComments: function () {
       return this.$store.getters.allComments;
     },
-    comment: function () {
-      return this.allComments[this.id];
-    },
     userObj: function () {
       return this.$store.getters.userObj;
     },
@@ -75,6 +72,7 @@ export default {
       replying: false,
       likes: 0,
       dislikes: 0,
+      comment: null,
       textarea: "",
       placeholder: this.$i18n.t("blog.onepost.comment.placeholder"),
     };
@@ -111,7 +109,6 @@ export default {
         commentID: this.id,
         content: this.textarea
       };
-      console.log(postData);
       this.$store.dispatch('SET_COMMENT_LOADING_ACTION', true);
       this.$store.dispatch('ADD_CHAIN_COMMENT', postData).then( (message) => {
         if (message === "success") {
@@ -122,6 +119,7 @@ export default {
             type: 'success'
           });
           this.$nextTick(function(){
+            this.comment = this.allComments[this.id];
           });
         } else {
           this.$message({
@@ -136,15 +134,10 @@ export default {
       this.textarea = "";
     }
   },
-  watch: {
-    allComments: function(val){
-      console.log("here");
-      console.log(val);
-    }
-  },
   created() {
     this.likes = this.allComments[this.id].likes;
     this.dislikes = this.allComments[this.id].dislikes;
+    this.comment = this.allComments[this.id];
   }
 }
 </script>
