@@ -130,6 +130,14 @@ const messages = {
 			replies: " replies",
 			cancel: "Cancel",
 			commentOn: "Commented on:",
+			second: " second ago",
+			seconds: " seconds ago",
+			minute: " minute ago",
+			minutes: " minutes ago",
+			hour: " hour ago",
+			hours: " hours ago",
+			day: " day ago",
+			days: " days ago",
 		}
 	},
 	// Chinese
@@ -263,6 +271,14 @@ const messages = {
 			replies: "条回复",
 			cancel: "取消",
 			commentOn: "评论于：",
+			second: " 秒前",
+			seconds: " 秒前",
+			minute: " 分钟前",
+			minutes: " 分钟前",
+			hour: " 小时前",
+			hours: " 小时前",
+			day: " 天前",
+			days: " 天前",
 		}
 	}
 };

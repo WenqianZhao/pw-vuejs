@@ -2,7 +2,7 @@
   <li v-if="comment" class="comment-item">
     <div class="comment-by">
       {{comment.commentby.username}}
-      <span class="created-at">{{$t('comment.commentOn') + " " + comment.createdAt}}</span>
+      <span class="created-at">{{$t('comment.commentOn') + " " + this.time}}</span>
     </div>
     <div class="text" v-html="compiledMarkdown"></div>
     <div class="like-and-dislike">
@@ -62,6 +62,28 @@ export default {
     userObj: function () {
       return this.$store.getters.userObj;
     },
+    time: function () {
+      if(this.comment.createdAt){
+        var now = Date.now();
+        var secondsPassed = Math.ceil((now - Date.parse(this.comment.createdAt))/1000);
+        if (secondsPassed < 60) {
+          return (secondsPassed === 1) ? secondsPassed + this.$i18n.t('comment.second') : secondsPassed + this.$i18n.t('comment.seconds');
+        }
+        var minutePassed = Math.floor(secondsPassed / 60);
+        if (minutePassed < 60) {
+          return (minutePassed === 1) ? minutePassed + this.$i18n.t('comment.minute') : minutePassed + this.$i18n.t('comment.minutes');
+        }
+        var hourPassed = Math.floor(minutePassed / 60);
+        if (hourPassed < 24) {
+          return (hourPassed === 1) ? hourPassed + this.$i18n.t('comment.hour') : hourPassed + this.$i18n.t('comment.hours');
+        }
+        var dayPassed = Math.floor(hourPassed / 24);
+        if (dayPassed < 30) {
+          return (dayPassed === 1) ? dayPassed + this.$i18n.t('comment.day') : dayPassed + this.$i18n.t('comment.days');
+        }
+        return this.comment.createdAt.split('T')[0];
+      }
+    }
   },
   props: ['id','postID'],
   data() {
