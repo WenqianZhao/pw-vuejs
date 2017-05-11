@@ -10,6 +10,7 @@ const state = {
 	loadingTag: false,
 	loadingTopPosts: false,
 	likeCurrent: false,
+	collectCurrent: false,
 };
 
 const getters = {
@@ -22,6 +23,7 @@ const getters = {
 	loadingTag: state => state.loadingTag,
 	loadingTopPosts: state => state.loadingTopPosts,
 	likeCurrent: state => state.likeCurrent,
+	collectCurrent: state => state.collectCurrent,
 };
 
 const actions = {
@@ -86,7 +88,10 @@ const actions = {
 	GET_ALL_POSTS: function ({commit}) {
 		axios.get(process.env.SERVER_ENV + 'posts/getall').then(function (response) {
 			var postData = response.data.response.data;
-			commit('SET_ALL_POSTS', {allPosts: postData.reverse()});
+			if(postData){
+				postData = postData.reverse();
+			}
+			commit('SET_ALL_POSTS', {allPosts: postData});
 			commit('SET_LOADING', {flag: false});
 		}).catch(function(err){
 			console.log(err);
@@ -115,7 +120,9 @@ const actions = {
 
 	GET_ONE_POST: function ({commit}, postData) {
 		axios.post(process.env.SERVER_ENV + 'posts/getone', postData).then(function (response) {
-			var currentPost = response.data.response.data;
+			var currentPost = response.data.response.data.post;
+			var collectors = response.data.response.data.collectors;
+			currentPost.collectors = collectors;
 			commit('SET_CURRENT_POST', {currentPost: currentPost});
 			commit('SET_LOADING', {flag: false});
 		}).catch(function(err){
@@ -133,11 +140,22 @@ const actions = {
 		});
 	},
 
-	UPDATE_POST_WITH_COLLECTION: function ({commit,state}, postData) {
-		axios.post(process.env.SERVER_ENV + 'posts/updatecollection', postData).then(function (response) {
+	UPDATE_POST_WITH_LIKES: function ({commit,state}, postData) {
+		axios.post(process.env.SERVER_ENV + 'posts/updatelike', postData).then(function (response) {
 			var updatedPost = response.data.response.data;
 			commit('UPDATE_CURRENT_POST', {currentPost: updatedPost});
-			commit('UPDATE_LIKE_CURRETN', postData);
+			commit('UPDATE_LIKE_CURRENT', postData);
+		}).catch(function(err){
+			console.log(err);
+		});
+	},
+
+	UPDATE_POST_WITH_COLLECTIONS: function ({commit,state}, postData) {
+		axios.post(process.env.SERVER_ENV + 'posts/updatecollect', postData).then(function (response) {
+			var updatedPost = response.data.response.data;
+			console.log(updatedPost);
+			commit('UPDATE_CURRENT_POST_COLLECTION', {currentPost: updatedPost});
+			commit('UPDATE_COLLECTION_CURRENT', postData);
 		}).catch(function(err){
 			console.log(err);
 		});
@@ -153,6 +171,10 @@ const actions = {
 
 	SET_LOADING_TOP_POSTS_ACTION: function ({commit}, flag) {
 		commit('SET_LOADING_TOP_POSTS', {flag: flag});
+	},
+
+	SET_COLLECTION_CURRENT: function ({commit}, flag) {
+		commit('UPDATE_COLLECTION_CURRENT', {addOneCollection: flag});
 	},
 };
 
@@ -181,8 +203,16 @@ const mutations = {
 		state.currentPost.likes = currentPost.likes;
 	},
 
-	UPDATE_LIKE_CURRETN: function (state, {addToCollection}) {
-		state.likeCurrent = addToCollection;
+	UPDATE_CURRENT_POST_COLLECTION: function (state, {currentPost}) {
+		state.currentPost.collections = currentPost.collections;
+	},
+
+	UPDATE_LIKE_CURRENT: function (state, {addOneLike}) {
+		state.likeCurrent = addOneLike;
+	},
+
+	UPDATE_COLLECTION_CURRENT:function (state, {addOneCollection}) {
+		state.collectCurrent = addOneCollection;
 	},
 
 	SET_LOADING: function (state, {flag}) {

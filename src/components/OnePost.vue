@@ -27,14 +27,27 @@
           </el-row>
           <el-row class="post-icons">
             <el-col :span="2">
-              <span v-if="this.likeCurrent" v-on:click="changeLike">
-                <el-tooltip class="item" effect="dark" content="Click to cancel collection" placement="top-start">
+              <span v-if="this.collectCurrent" v-on:click="changeCollect">
+                <el-tooltip class="item" effect="dark" :content="collectContent" placement="top-start">
                   <i class="el-icon-star-on"></i>
                 </el-tooltip>
               </span>
-              <span v-else v-on:click="changeLike">
-                <el-tooltip class="item" effect="dark" content="Click to collect" placement="top-start">
+              <span v-else v-on:click="changeCollect">
+                <el-tooltip class="item" effect="dark" :content="collectContent" placement="top-start">
                   <i class="el-icon-star-off"></i>
+                </el-tooltip>
+              </span>
+              <span class="icon-number">{{currentPost.collections}}</span>
+            </el-col>
+            <el-col :span="2">
+              <span v-if="this.likeCurrent" v-on:click="changeLike">
+                <el-tooltip class="item" effect="dark" :content="likeContent" placement="top-start">
+                  <i class="fa fa-heart" aria-hidden="true"></i>
+                </el-tooltip>
+              </span>
+              <span v-else v-on:click="changeLike">
+                <el-tooltip class="item" effect="dark" :content="likeContent" placement="top-start">
+                  <i class="fa fa-heart-o" aria-hidden="true"></i>
                 </el-tooltip>
               </span>
               <span class="icon-number">{{currentPost.likes}}</span>
@@ -100,8 +113,11 @@ export default {
     likeCurrent: function () {
       return this.$store.getters.likeCurrent;
     },
+    collectCurrent: function () {
+      return this.$store.getters.collectCurrent;
+    },
     compiledMarkdown: function () {
-      if(this.currentPost){
+      if (this.currentPost) {
         return marked(this.currentPost.content);
       }
     },
@@ -114,9 +130,13 @@ export default {
   },
   data() {
     return {
+      like: false,
+      collection: false,
       textarea: "",
       placeholder: this.$i18n.t("blog.onepost.comment.placeholder"),
       postID: "",
+      likeContent: this.likeCurrent ? this.$i18n.t("blog.like.cancel") : this.$i18n.t("blog.like.click"),
+      collectContent: this.likeCurrent ? this.$i18n.t("blog.collect.cancel") : this.$i18n.t("blog.collect.click"),
     };
   },
   methods: {
@@ -130,10 +150,41 @@ export default {
       this.$store.dispatch('SET_COMMENT_LOADING_ACTION', true);
       this.$store.dispatch('GET_ONE_POST', {postID: postID});
       this.$store.dispatch('GET_ALL_COMMENTS_BY_POSTID', {postID: postID});
+      setTimeout(() => {
+        var flag = this.hasCollected();
+        this.$store.dispatch('SET_COLLECTION_CURRENT', flag);
+        this.collection = flag;
+      }, 300);
+    },
+    hasCollected: function () {
+      if (this.currentPost.collectors && this.userObj) {
+        var userEmail = this.userObj.email;
+        if (this.currentPost.collectors.some(user => user.email === userEmail)) {
+          return true;
+        }
+      }
+      return false;
     },
     changeLike () {
       this.like = !this.like;
-      this.$store.dispatch('UPDATE_POST_WITH_COLLECTION', {postID: this.currentPost.id, addToCollection: this.like});
+      this.likeContent = this.like ? this.$i18n.t("blog.like.cancel") : this.$i18n.t("blog.like.click");
+      this.$store.dispatch('UPDATE_POST_WITH_LIKES', {postID: this.currentPost.id, addOneLike: this.like});
+    },
+    changeCollect () {
+      if (!this.userObj || !this.userObj.username) {        
+        this.$alert(this.$i18n.t('blog.onepost.loginBeforeCollect'), this.$i18n.t('blog.onepost.info'), {
+          confirmButtonText: this.$i18n.t('blog.onepost.confirm'),
+          callback: action => {
+            if (action == 'confirm') {
+              this.$router.push({path: '/login'});
+            }
+          }
+        });
+      } else {
+        this.collection = !this.collection;
+        this.collectContent = this.collection ? this.$i18n.t("blog.collect.cancel") : this.$i18n.t("blog.collect.click");
+        this.$store.dispatch('UPDATE_POST_WITH_COLLECTIONS', {postID: this.currentPost.id, addOneCollection: this.collection, email: this.userObj.email});
+      }
     },
     shareTo () {
 
@@ -176,4 +227,5 @@ export default {
 <style lang="scss">
   @import "~styles/components/blog.scss";
   @import "~styles/css/highlightjs.min.css";
+  @import "~styles/css/font-awesome.min.css";
 </style>

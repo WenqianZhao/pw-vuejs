@@ -143,6 +143,7 @@
 		.one-post-content {
 			p {
 				font-size: 20px;
+				margin: 0.5em 0 0.5em 0;
 			}
 			// similar to github
 			code {
@@ -193,6 +194,14 @@
 				color: #888f91;
 				margin-left: 0.2em;
 				font-size: 1.2em;
+			}
+			.fa-heart, .fa-heart-o {
+				color: #ff584f;
+				font-size: 1.5em;
+			}
+			.fa-heart:hover, .fa-heart-o:hover {
+				color: #f9291d;
+				cursor: pointer;
 			}
 		}
 

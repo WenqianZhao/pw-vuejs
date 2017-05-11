@@ -112,12 +112,23 @@ const messages = {
 				comment: {
 					none: "No comment yet, you can be the first one :)",
 					placeholder: "Please input the comment... ",
-				}
+				},
+				loginBeforeCollect: "You need to login to collect a post. Do you want to login now?",
+				confirm: "Yes",
+				info: "Info",
 			},
 			bytag: "Here are the posts with tag '{tag}' :",
 			onsearch: "Here are the posts that contains '{search}' :",
 			clicks: "  Clicks: ",
 			top: "Top 5 posts: ",
+			collect: {
+				click: "Click to collect",
+				cancel: "Click to cancel collection",
+			},
+			like: {
+				click: "Click to like",
+				cancel: "Click to cancel like",
+			},
 		},
 		comment: {
 			collapsed: " collapsed",
@@ -253,12 +264,23 @@ const messages = {
 				comment: {
 					none: "还没人评论呢，快来抢沙发吧！",
 					placeholder: "请输入评论",
-				}
+				},
+				loginBeforeCollect: "登录之后才能收藏文章。你想现在登录吗？",
+				confirm: "是的",
+				info: "注意啦：",
 			},
 			bytag: "下面是所有拥有标签‘{tag}’的文章：",
 			onsearch: "下面是所有包含‘{search}’的文章：",
 			clicks: "  点击量：",
 			top: "最受欢迎的5篇博文：",
+			collect: {
+				click: "点击收藏",
+				cancel: "点击取消收藏",
+			},
+			like: {
+				click: "喜欢就点击一下吧",
+				cancel: "点击取消喜欢",
+			},
 		},
 		comment: {
 			collapsed: " 点击查看",
