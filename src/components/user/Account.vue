@@ -5,9 +5,9 @@
   			<el-row>
           <el-col :span="5" :offset="1">
             <ul class="vertical-nav-bar">
-              <li><router-link :to="{name:'profile'}" class="link">{{$t('account.Profile')}}</router-link></li>
-              <li><router-link :to="{name:'changePassword'}" class="link">{{$t('account.cp')}}</router-link></li>
-              <li><router-link :to="{name:'userCollection'}" class="link">{{$t('account.Collection')}}</router-link></li>
+              <li class="nav-item"><router-link :to="{name:'profile'}" class="link">{{$t('account.Profile')}}</router-link></li>
+              <li class="nav-item"><router-link :to="{name:'changePassword'}" class="link">{{$t('account.cp')}}</router-link></li>
+              <li class="nav-item"><router-link :to="{name:'userCollection'}" class="link">{{$t('account.Collection')}}</router-link></li>
             </ul>
           </el-col>
 					<el-col :span="17" :offset="1">

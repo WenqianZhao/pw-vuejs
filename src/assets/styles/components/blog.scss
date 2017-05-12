@@ -4,70 +4,6 @@
 		text-decoration: none;
 	}
 	
-	.blog-abs {
-		margin: 0 0 1em 0;
-		padding-bottom: 1em;
-		border-bottom: 1px solid rgba(0,0,0,.0785)!important;
-
-		.blog-title {
-			margin: 0.5em 0 0.5em 0;
-			font-family: Helvetica;
-
-			a:link, a:visited {
-				color: black;
-			}
-			a:hover {
-				color: #48576a;
-			}
-		}
-
-		.blog-author {
-			margin:0;
-			font-size: 12px;
-		}
-
-		.blog-abstract {
-			p {
-				font-size: 16px;
-			}
-			// similar to github
-			code {
-				padding: 0.2em 0.2em 0.2em 0.2em;
-				margin: 0;
-				font-size: 85%;
-				font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
-			}
-			p>code {
-				background-color: rgba(27,31,35,0.05);
-				color: #ff4747;
-			}
-			pre {
-				padding: 1em;
-				background-color: rgba(27,31,35,0.05);
-			}
-		}
-
-		.readmore {	
-			a:link, a:visited {
-				color: #a2a4a5;
-			}
-			a:hover {
-				color: #8b8d8e;
-			}
-			font-size: 14px;
-		}
-
-		.blog-tags {
-			margin-top: 1em;
-			a:link, a:visited {
-				color: white;
-			}
-			a:hover {
-				color: white;
-			}
-		}
-	}
-
 	.search-bar {
 		margin-bottom: 1em;
 
@@ -122,6 +58,70 @@
 				float: right;
 
 			}
+		}
+	}
+}
+
+.blog-abs {
+	margin: 0 0 1em 0;
+	padding-bottom: 1em;
+	border-bottom: 1px solid rgba(0,0,0,.0785)!important;
+
+	.blog-title {
+		margin: 0.5em 0 0.5em 0;
+		font-family: Helvetica;
+
+		a:link, a:visited {
+			color: black;
+		}
+		a:hover {
+			color: #48576a;
+		}
+	}
+
+	.blog-author {
+		margin:0;
+		font-size: 12px;
+	}
+
+	.blog-abstract {
+		p {
+			font-size: 16px;
+		}
+		// similar to github
+		code {
+			padding: 0.2em 0.2em 0.2em 0.2em;
+			margin: 0;
+			font-size: 85%;
+			font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+		}
+		p>code {
+			background-color: rgba(27,31,35,0.05);
+			color: #ff4747;
+		}
+		pre {
+			padding: 1em;
+			background-color: rgba(27,31,35,0.05);
+		}
+	}
+
+	.readmore {	
+		a:link, a:visited {
+			color: #a2a4a5;
+		}
+		a:hover {
+			color: #8b8d8e;
+		}
+		font-size: 14px;
+	}
+
+	.blog-tags {
+		margin-top: 1em;
+		a:link, a:visited {
+			color: white;
+		}
+		a:hover {
+			color: white;
 		}
 	}
 }

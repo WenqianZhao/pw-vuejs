@@ -236,6 +236,19 @@ const actions = {
 			reject(error);
 		});
 	},
+
+	GET_ALL_COLLECTIONS: function ({commit}, postData) {
+		axios.post(process.env.SERVER_ENV + 'user/getallcollections', postData).then(function (response) {
+			var postData = response.data.response.data;
+			if(postData){
+				postData = postData.reverse();
+			}
+			commit('SET_ALL_POSTS', {allPosts: postData});
+			commit('SET_LOADING', {flag: false});
+		}).catch(function(err){
+			console.log(err);
+		});
+	},
 };
 
 const mutations = {

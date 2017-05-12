@@ -1,11 +1,52 @@
 .account {
+	a {
+		text-decoration: none;
+	}
+
 	.vertical-nav-bar {
 		list-style-type: none;
-	    margin: 0;
+	    margin: 2em 0 0 0;
 	    padding: 0;
+
+		li a:active {
+			color: #99A9BF;
+			font-size: 1.2em;
+		}
+
+	    .nav-item {
+	    	padding: 1em 0 1em 0;
+	    	a:link, a:visited {
+				color: #324057;
+			}
+			a:hover {
+				color: #99A9BF;
+				font-size: 1.2em;
+			}
+	    }
 	}
 
 	.profile {
 		margin: 5%;
+		input[type=text] {
+			padding:4px; 
+		    border:1px solid #ccc; 
+		    -webkit-border-radius: 3px;
+		    border-radius: 3px;
+		}
+	}
+
+	.change-password {
+		margin: 5%;
+		margin-top: 10%;
+		input {
+			padding:4px; 
+		    border:1px solid #ccc; 
+		    -webkit-border-radius: 3px;
+		    border-radius: 3px;
+		}
+	}
+
+	.user-collection {
+		margin: 1em 0 1em 0;
 	}
 }

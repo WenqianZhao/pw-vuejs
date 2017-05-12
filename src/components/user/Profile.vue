@@ -4,11 +4,11 @@
       <p>{{$t('account.profile.Username')}}: {{this.userObj.username}}</p>
       <p>{{$t('account.profile.Email')}}: {{this.userObj.email}}</p>
       <p>{{$t('account.profile.Role')}}: {{this.userObj.role}}</p>
-      <p v-if="modifying === true">{{$t('account.profile.Firstname')}}: <input name="firstname" v-model="formData.firstname"></p>
+      <p v-if="modifying === true">{{$t('account.profile.Firstname')}}: <input name="firstname" type="text" v-model="formData.firstname"></p>
       <p v-else>{{$t('account.profile.Firstname')}}: {{this.userObj.firstname}}</p>
-      <p v-if="modifying === true">{{$t('account.profile.Lastname')}}: <input name="lastname" v-model="formData.lastname"></p>
+      <p v-if="modifying === true">{{$t('account.profile.Lastname')}}: <input name="lastname" type="text" v-model="formData.lastname"></p>
       <p v-else>{{$t('account.profile.Lastname')}}: {{this.userObj.lastname}}</p>
-      <p v-if="modifying === true">{{$t('account.profile.Age')}}: <input name="age" v-model="formData.age"></p>
+      <p v-if="modifying === true">{{$t('account.profile.Age')}}: <input name="age" type="text" v-model="formData.age"></p>
       <p v-else>{{$t('account.profile.Age')}}: {{this.userObj.age}}</p>
       <p v-if="modifying === true">{{$t('account.profile.Gender')}}: 
         <el-radio-group v-model="formData.gender">
