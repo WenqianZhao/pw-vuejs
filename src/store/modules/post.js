@@ -58,6 +58,19 @@ const actions = {
 		});
 	},
 
+	MODIFY_ONE_POST: function ({commit}, postData) {
+		return new Promise( (resolve, reject) => {
+			axios.post(process.env.SERVER_ENV + 'posts/modify', postData).then(function (response) {
+				// If post is successfully modified
+				if (response.data.response.status_code === 1513) {
+					resolve('success');
+				} else {
+					resolve('failure');
+				}
+			});
+		});
+	},
+
 	SEARCH_POSTS: function ({commit}, postData) {
 		return new Promise( (resolve, reject) => {
 			axios.post(process.env.SERVER_ENV + 'posts/search', postData).then(function (response) {

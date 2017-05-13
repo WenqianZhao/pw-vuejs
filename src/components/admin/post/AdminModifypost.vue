@@ -1,8 +1,8 @@
 <template>
-  <div class="admin-post-create">
+  <div class="admin-post-modify">
     <el-row type="flex" justify="center">
       <el-col :span="6">
-        <p class="create">Create a new post</p>
+        <p class="modify">Modify a post</p>
       </el-col>
     </el-row>
     <el-row>
@@ -11,11 +11,6 @@
           <el-col :span="6">
             <el-form-item label="Title:">
               <el-input placeholder="title" v-model="post.title"></el-input>
-            </el-form-item>
-          </el-col>
-          <el-col :span="8" :offset="2">
-            <el-form-item label="Tags:" label-width="50px">
-              <el-input v-model="post.tags"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
@@ -35,9 +30,13 @@
 </template>
 
 <script>
+import {mapGetters} from 'vuex';
 import { mavonEditor } from 'mavon-editor';
 
 export default {
+  computed: mapGetters({
+    currentPost: 'currentPost'
+  }),
   components: {
     mavonEditor
   },
@@ -47,32 +46,38 @@ export default {
       lp: 'top',
       post: {
         title: '',
-        tags: '',
         abstract: '',
       }
     };
   },
   methods: {
+    fetchOnePost () {
+      var postID = this.$route.params.id;
+      this.$store.dispatch('SET_LOADING_ACTION', true);
+      this.$store.dispatch('GET_ONE_POST', {postID: postID});
+      setTimeout(() => {
+        this.value = this.currentPost.content;
+        this.post.title = this.currentPost.title;
+        this.post.abstract = this.currentPost.abstract;
+      }, 300);
+    },
     savePost: function(value, reder) {
+      console.log(value);
+      console.log(reder);
       var postData = {
+        id: this.currentPost.id,
         title: this.post.title,
-        tags: this.post.tags,
         abstract: this.post.abstract,
-        email: 'zhwq11308@gmail.com',
         content: value,
       };
-      this.$store.dispatch('CREATE_NEW_POST', postData).then( (retVal) => {
-        if(retVal.message === 'success'){
+      this.$store.dispatch('MODIFY_ONE_POST', postData).then( (message) => {
+        if(message === 'success'){
           this.$message({
-            message: 'Successfully create a new post.',
+            message: 'Successfully modify a new post.',
             type: 'success'
           });
         } else {
-          if(!retVal.message){
-            this.$message.error(retVal.message);
-          } else {
-            this.$message.error('Fail to create a new post.');
-          }
+          this.$message.error('Fail to modify a new post.');
         }
         this.$router.push({ name: 'adminPostGetAll'});
       }).catch((err) => {
@@ -80,6 +85,12 @@ export default {
       });
     }
   },
+  watch: {
+    '$route': 'fetchOnePost',
+  },
+  created() {
+    this.fetchOnePost();
+  }
 }
 </script>
 

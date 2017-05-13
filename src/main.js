@@ -33,6 +33,7 @@ import AdminPostCreate from './components/admin/post/AdminPostCreate';
 import AdminPostGetAll from './components/admin/post/AdminPostGetAll';
 import AdminGetAllAdvices from './components/admin/advice/AdminGetAllAdvices';
 import AdminGetAllUsers from './components/admin/AdminGetAllUsers';
+import AdminModifypost from './components/admin/post/AdminModifypost';
 
 import jwt from 'jsonwebtoken';
 
@@ -150,6 +151,11 @@ const routes = [
             path: 'getall',
             name: 'adminPostGetAll',
             component: AdminPostGetAll,
+          },
+          {
+            path: 'modify/:id',
+            name: 'adminModifyPost',
+            component: AdminModifypost,
           }
         ]
       },

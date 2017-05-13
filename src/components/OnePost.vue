@@ -61,6 +61,9 @@
               <span class="icon-number">{{currentPost.reposts}}</span>
             </el-col>
           </el-row>
+          <el-row v-if="this.userObj.role === 'Admin'" class="modify-post">
+            <router-link :to="{name:'adminModifyPost', params: { id: this.currentPost.id }}" class="link">Modify</router-link>
+          </el-row>
           <el-row class="post-comments">
             <h3>{{$t('blog.onepost.comments')}}</h3>
             <div class="comment-textarea" v-if="userObj.username">
