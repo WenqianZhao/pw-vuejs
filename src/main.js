@@ -32,6 +32,7 @@ import AdminPost from './components/admin/AdminPost';
 import AdminPostCreate from './components/admin/post/AdminPostCreate';
 import AdminPostGetAll from './components/admin/post/AdminPostGetAll';
 import AdminGetAllAdvices from './components/admin/advice/AdminGetAllAdvices';
+import AdminGetAllUsers from './components/admin/AdminGetAllUsers';
 
 import jwt from 'jsonwebtoken';
 
@@ -156,6 +157,11 @@ const routes = [
         path: 'advices/all',
         name: 'adminGetAllAdvices',
         component: AdminGetAllAdvices,
+      },
+      {
+        path: 'users/all',
+        name: 'adminGetAllUsers',
+        component: AdminGetAllUsers
       }
     ],
   },

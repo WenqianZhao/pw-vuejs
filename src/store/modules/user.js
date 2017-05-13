@@ -6,13 +6,15 @@ const secret = "PeterZhao's Website";
 const state = {
 	token: "",
 	userObj: {},
-	status: null
+	status: null,
+	allUsers: [],
 };
 
 const getters = {
 	token: state => state.token,
 	userObj: state => state.userObj,
-	status: state => state.status
+	status: state => state.status,
+	allUsers: state => state.allUsers,
 };
 
 const actions = {
@@ -256,11 +258,21 @@ const actions = {
 
 	GET_ALL_COLLECTIONS: function ({commit}, postData) {
 		axios.post(process.env.SERVER_ENV + 'user/getallcollections', postData).then(function (response) {
-			var postData = response.data.response.data;
-			if(postData){
-				postData = postData.reverse();
+			var allPosts = response.data.response.data;
+			if(allPosts){
+				allPosts = allPosts.reverse();
 			}
-			commit('SET_ALL_POSTS', {allPosts: postData});
+			commit('SET_ALL_POSTS', {allPosts: allPosts});
+			commit('SET_LOADING', {flag: false});
+		}).catch(function(err){
+			console.log(err);
+		});
+	},
+
+	GET_ALL_USERS: function ({commit}) {
+		axios.get(process.env.SERVER_ENV + 'user/getall').then(function (response) {
+			var allUsers = response.data.response.data;
+			commit('SET_ALL_USERS', {allUsers: allUsers});
 			commit('SET_LOADING', {flag: false});
 		}).catch(function(err){
 			console.log(err);
@@ -278,6 +290,9 @@ const mutations = {
 		state.token = "";
 		state.userObj = {};
 		state.status = null;
+	},
+	SET_ALL_USERS: (state, {allUsers}) => {
+		state.allUsers = allUsers;
 	},
 };
 

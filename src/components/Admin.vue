@@ -12,7 +12,9 @@
               <router-link :to="{name:'adminPostGetAll'}" class="link">Get all posts</router-link>
             </el-menu-item>
           </el-submenu>
-          <el-menu-item index="2">Users</el-menu-item>
+          <el-menu-item index="2">
+            <router-link :to="{name:'adminGetAllUsers'}" class="link">Users</router-link>
+          </el-menu-item>
           <el-menu-item index="3">
             <router-link :to="{name:'adminGetAllAdvices'}" class="link">Advices</router-link>
           </el-menu-item>
