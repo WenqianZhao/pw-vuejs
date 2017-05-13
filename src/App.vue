@@ -19,6 +19,9 @@
             <el-menu-item index="4">
               <router-link :to="{name:'about'}" class="link">{{ $t("navbar.About") }}</router-link>
             </el-menu-item>
+            <el-menu-item index="10">
+              <router-link :to="{name:'contact'}" class="link">{{ $t("navbar.Contact") }}</router-link>
+            </el-menu-item>
             <el-menu-item index="5" v-if="checkPermission() === 1">
               <router-link :to="{name:'admin'}" class="link">{{ $t("navbar.Admin") }}</router-link>
             </el-menu-item>
@@ -74,7 +77,6 @@ export default {
   },
   methods: {
     handleSelect(key, keyPath) {
-      console.log(key, keyPath);
     },
     checkPermission() {
       if(this.userObj){

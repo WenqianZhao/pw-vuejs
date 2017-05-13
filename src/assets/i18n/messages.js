@@ -15,6 +15,7 @@ const messages = {
 			Account: "Account",
 			Logout: "Logout",
 			Login: "Login",
+			Contact: "Contact",
 		},
 		login: {
 			Email: "Email",
@@ -60,6 +61,18 @@ const messages = {
 			soccer: "Watch Soccer Games",
 			game: "Play Video Games",
 			social: "Social Media",
+		},
+		contact: {
+			name: "Name",
+			advice: "Advice",
+			bug: "Found Bug",
+			content: "Content",
+			checkSelect: "Please select one option",
+			checkContent: "Please enter the content of message",
+			checkName: "Please enter your name",
+			thanks: "Thanks for advice!",
+			error: "Fail to submit the form. Please retry later.",
+			adviceOrBug: "Message type",
 		},
 		account: {
 			Profile: "Profile",
@@ -167,6 +180,7 @@ const messages = {
 			Account: "我的账户",
 			Logout: "登出",
 			Login: "登录",
+			Contact: "联系我",
 		},
 		login: {
 			Email: "邮箱",
@@ -212,6 +226,18 @@ const messages = {
 			soccer: "看球赛",
 			game: "玩游戏",
 			social: "个人社交媒体",
+		},
+		contact: {
+			name: "姓名",
+			advice: "个人建议",
+			bug: "发现的Bug",
+			content: "建议内容",
+			checkSelect: "请选择一项建议",
+			checkContent: "请输入建议内容",
+			checkName: "请输入您的姓名",
+			thanks: "谢谢您的建议与反馈！",
+			error: "未能成功提交，请稍后再试",
+			adviceOrBug: "建议类型",
 		},
 		account: {
 			Profile: "个人档案",

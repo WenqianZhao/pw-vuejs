@@ -262,7 +262,7 @@ const mutations = {
 		state.userObj = {};
 		state.status = null;
 	},
-}
+};
 
 export default {
 	state,

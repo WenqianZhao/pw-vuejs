@@ -17,6 +17,7 @@ import Admin from './components/Admin';
 import Signup from './components/Signup';
 import Blog from './components/Blog';
 import About from './components/About';
+import Contact from './components/Contact';
 import OnePost from './components/OnePost';
 import BlogByTag from './components/blog/BlogByTag';
 import BlogSearch from './components/blog/BlogSearch';
@@ -30,6 +31,7 @@ import UserCollection from './components/user/UserCollection';
 import AdminPost from './components/admin/AdminPost';
 import AdminPostCreate from './components/admin/post/AdminPostCreate';
 import AdminPostGetAll from './components/admin/post/AdminPostGetAll';
+import AdminGetAllAdvices from './components/admin/advice/AdminGetAllAdvices';
 
 import jwt from 'jsonwebtoken';
 
@@ -123,6 +125,11 @@ const routes = [
     component: About,
   },
   {
+    path: '/contact',
+    name: 'contact',
+    component: Contact,
+  },
+  {
     path: '/admin',
     name: 'admin',
     component: Admin,
@@ -144,6 +151,11 @@ const routes = [
             component: AdminPostGetAll,
           }
         ]
+      },
+      {
+        path: 'advices/all',
+        name: 'adminGetAllAdvices',
+        component: AdminGetAllAdvices,
       }
     ],
   },

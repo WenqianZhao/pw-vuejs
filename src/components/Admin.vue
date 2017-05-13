@@ -13,6 +13,9 @@
             </el-menu-item>
           </el-submenu>
           <el-menu-item index="2">Users</el-menu-item>
+          <el-menu-item index="3">
+            <router-link :to="{name:'adminGetAllAdvices'}" class="link">Advices</router-link>
+          </el-menu-item>
         </el-menu>
       </el-col>
       <el-col :span="20">
