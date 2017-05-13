@@ -189,28 +189,38 @@ router.beforeEach((to, from, next) => {
         });
       } else {
         if(decoded){
-          // If user is admin
-          if(decoded.role === "Admin") {
-            store.dispatch('SET_USER_STATE', {token: token, decoded: decoded})
-            .then((message) => {
-              next();
-            });
-          } else {
-            // If user is normal user
-            if(to.matched.some(record => record.meta.requiresAdmin)) {
-              store.dispatch('SET_USER_STATE', {token: token, decoded: decoded})
-              .then((message) => {
-                next({
-                  path: '/'
-                });
+          // Refresh token
+          store.dispatch('REFRESH_TOKEN', {token: token}).then( (newToken) => {
+            if (newToken === 'failure') {
+              next({
+                path: '/logout'
               });
             } else {
-              store.dispatch('SET_USER_STATE', {token: token, decoded: decoded})
-              .then((message) => {
-                next();
-              });
+              token = newToken;
+              // If user is admin
+              if(decoded.role === "Admin") {
+                store.dispatch('SET_USER_STATE', {token: token, decoded: decoded})
+                .then((message) => {
+                  next();
+                });
+              } else {
+                // If user is normal user
+                if(to.matched.some(record => record.meta.requiresAdmin)) {
+                  store.dispatch('SET_USER_STATE', {token: token, decoded: decoded})
+                  .then((message) => {
+                    next({
+                      path: '/'
+                    });
+                  });
+                } else {
+                  store.dispatch('SET_USER_STATE', {token: token, decoded: decoded})
+                  .then((message) => {
+                    next();
+                  });
+                }
+              }
             }
-          }
+          });
         } else {
           next({
             path: '/logout'

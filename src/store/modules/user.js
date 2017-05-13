@@ -16,6 +16,24 @@ const getters = {
 };
 
 const actions = {
+	REFRESH_TOKEN: function ({commit}, postData) {
+		return new Promise( (resolve, reject) => {
+			axios.post(process.env.SERVER_ENV + 'token/refresh', postData).then(function (response) {
+				var data = response.data.response.data;
+				// If successfully refresh token
+				if (response.data.response.status_code === 1013) {
+					// store the token in localstorage
+					window.localStorage.setItem('token', data.token);
+					resolve(data.token);
+				} else {
+					resolve('failure');
+				}
+			});
+		}).catch(function (error) {
+			reject(error);
+		});
+	},
+
 	GET_USER_OBJECT: function ({commit}, postData) {
 		return new Promise( (resolve, reject) => {
 			var data = {};
@@ -149,7 +167,6 @@ const actions = {
 			commit('SET_USER_DATA', userData);
 			resolve('success');
 		});
-		
 	},
 	RESET_USER_STATE: function ({commit}) {
 		commit('RESET_USER_STATE');
