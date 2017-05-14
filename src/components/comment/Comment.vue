@@ -6,8 +6,8 @@
     </div>
     <div class="text" v-html="compiledMarkdown"></div>
     <div class="like-and-dislike">
-      <img class="icon" src="../../assets/images/icon/like.png" @click="like"><span :class="{ like : liked}">{{likes}}</span>
-      <img class="icon" src="../../assets/images/icon/dislike.png" @click="dislike"><span :class="{ dislike : disliked}">{{dislikes}}</span>
+      <img class="icon" src="../../assets/images/icons/like.png" @click="like"><span :class="{ like : liked}">{{likes}}</span>
+      <img class="icon" src="../../assets/images/icons/dislike.png" @click="dislike"><span :class="{ dislike : disliked}">{{dislikes}}</span>
     </div>
     <div class="reply" v-if="userObj.username">
       <el-row>

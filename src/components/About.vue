@@ -8,7 +8,7 @@
 	  	<el-collapse v-model="activeName" accordion>
 			  <el-collapse-item name="1">
 				  <template slot="title">
-			      {{$t('about.Education')}}<img src="../assets/images/icon/education.png" class="icon">
+			      {{$t('about.Education')}}<img src="../assets/images/icons/education.png" class="icon">
 			    </template>
 			  	<el-collapse v-model="subActiveName" accordion>
 			  		<el-collapse-item :title="this.$i18n.t('about.Undergraduate')" name="5">
@@ -37,7 +37,7 @@
 			  </el-collapse-item>
 			  <el-collapse-item name="2">
 			  	<template slot="title">
-			      {{$t('about.Internship')}}<img src="../assets/images/icon/internship.png" class="intern-icon">
+			      {{$t('about.Internship')}}<img src="../assets/images/icons/internship.png" class="intern-icon">
 			    </template>
 			    <el-row>
 	  				<el-col :span="9">
@@ -51,7 +51,7 @@
 			  </el-collapse-item>
 			  <el-collapse-item name="3">
 			  	<template slot="title">
-			      {{$t('about.Skills')}}<img src="../assets/images/icon/skill.png" class="intern-icon">
+			      {{$t('about.Skills')}}<img src="../assets/images/icons/skill.png" class="intern-icon">
 			    </template>
 			    <el-row>
 	  				<el-col :span="16">
@@ -77,7 +77,7 @@
 			  </el-collapse-item>
 			  <el-collapse-item name="4">
 			  	<template slot="title">
-			      {{$t('about.Hobby')}}<img src="../assets/images/icon/hobby.png" class="hobby-icon">
+			      {{$t('about.Hobby')}}<img src="../assets/images/icons/hobby.png" class="hobby-icon">
 			    </template>
 			    <el-row>
 	  				<el-col :span="8" class="card">
@@ -102,27 +102,27 @@
 			  </el-collapse-item>
 			  <el-collapse-item name="5">
 			  	<template slot="title">
-			      {{$t('about.social')}}<img src="../assets/images/icon/social.png" class="hobby-icon">
+			      {{$t('about.social')}}<img src="../assets/images/icons/social.png" class="hobby-icon">
 			    </template>
 			    <el-row>
 	  				<el-col :span="4" class="social">
 	  					<a href="https://www.facebook.com/wenqian.zhao.54">
-	  						<img src="../assets/images/icon/social/fb.png" class="social-icon">
+	  						<img src="../assets/images/icons/social/fb.png" class="social-icon">
 	  					</a>
 	  				</el-col>
 	  				<el-col :span="4" class="social">
 	  					<a href="http://weibo.com/u/2381346515?refer_flag=1005055010_&is_all=1">
-	  						<img src="../assets/images/icon/social/weibo.png" class="social-icon">
+	  						<img src="../assets/images/icons/social/weibo.png" class="social-icon">
 	  					</a>
 	  				</el-col>
 	  				<el-col :span="4" class="social">
 	  					<a href="https://github.com/WenqianZhao">
-	  						<img src="../assets/images/icon/social/github.png" class="social-icon">
+	  						<img src="../assets/images/icons/social/github.png" class="social-icon">
 	  					</a>
 	  				</el-col>
 	  				<el-col :span="4" class="social">
 	  					<a href="https://www.linkedin.com/in/%E6%96%87%E8%B0%A6-%E8%B5%B5-554898126/">
-	  						<img src="../assets/images/icon/social/linkedin.png" class="social-icon">
+	  						<img src="../assets/images/icons/social/linkedin.png" class="social-icon">
 	  					</a>
 	  				</el-col>
 	  			</el-row>
