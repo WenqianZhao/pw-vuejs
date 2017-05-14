@@ -69,7 +69,17 @@ const routes = [
   },
   {
     path: '/logout',
-    name: 'logout'
+    name: 'logout',
+    beforeEnter: (to, from, next) => {
+      // Logout
+      store.dispatch('RESET_USER_STATE');
+      // remove token
+      window.localStorage.removeItem('token');
+      console.log("logout");
+      next({
+        path: '/'
+      });
+    }
   },
   {
     path: '/user',
