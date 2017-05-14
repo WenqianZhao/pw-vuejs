@@ -208,6 +208,17 @@
 
 		.modify-post {
 			margin-top: 1em;
+			.el-icon-modify, .el-icon-delete {
+    			font-size: 1.5em;
+    			color: #42c7f4;
+			}
+			.el-icon-delete:hover {
+				cursor: pointer;
+				color: #84e0ff;
+			}
+			.el-icon-delete {
+				margin-left: 1em;
+			}
 			a {
 				text-decoration: none;
 			}

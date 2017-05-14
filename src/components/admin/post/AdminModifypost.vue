@@ -62,8 +62,6 @@ export default {
       }, 300);
     },
     savePost: function(value, reder) {
-      console.log(value);
-      console.log(reder);
       var postData = {
         id: this.currentPost.id,
         title: this.post.title,

@@ -62,7 +62,8 @@
             </el-col>
           </el-row>
           <el-row v-if="this.userObj.role === 'Admin'" class="modify-post">
-            <router-link :to="{name:'adminModifyPost', params: { id: this.currentPost.id }}" class="link">Modify</router-link>
+            <router-link :to="{name:'adminModifyPost', params: { id: this.currentPost.id }}" class="link"><i class="el-icon-edit"></i></router-link>
+            <i class="el-icon-delete" @click="deletePost"></i>
           </el-row>
           <el-row class="post-comments">
             <h3>{{$t('blog.onepost.comments')}}</h3>
@@ -218,6 +219,22 @@ export default {
     },
     onReset () {
       this.textarea = "";
+    },
+    deletePost () {
+      this.$store.dispatch('DELETE_POST', {postID: this.currentPost.id}).then( (message) => {
+        if (message === "success") {
+          this.$message({
+            message: "Successfully delete the post.",
+            type: 'success'
+          });
+          this.$router.push({path: '/blog/all'});
+        } else {
+          this.$message({
+            message: "Fail to delete the post.",
+            type: 'warn'
+          });
+        }
+      });
     }
   },
   watch: {

@@ -39,9 +39,7 @@ export default {
   },
   methods: {
   	searchPosts () {
-      var encodedString = this.$route.params.content;
-      // decode string
-      var searchStr = new Buffer(encodedString, 'base64').toString('ascii');
+      var searchStr = this.$route.params.content;
       this.$store.dispatch('SET_LOADING_ACTION', true);
       this.$store.dispatch('SEARCH_POSTS', { searchStr : searchStr}).then( (message) => {
         if(message === 'success'){

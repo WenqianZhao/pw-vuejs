@@ -65,9 +65,7 @@ export default {
   },
   methods: {
   	handleIconClick (ev) {
-  		// do Base64 encoding
-      var encodedString = new Buffer(this.searchInput).toString('base64');
-  		this.$router.push({ name: 'blogSearch', params: { content: encodedString }});
+      this.$router.push({ name: 'blogSearch', params: { content: this.searchInput }});
   	},
     postComputedID (post_id, post_title) {
       // use id + '&&' + title to distinguish different posts

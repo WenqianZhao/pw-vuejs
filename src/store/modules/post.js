@@ -71,6 +71,19 @@ const actions = {
 		});
 	},
 
+	DELETE_POST: function ({commit}, postData) {
+		return new Promise( (resolve, reject) => {
+			axios.post(process.env.SERVER_ENV + 'posts/delete', postData).then(function (response) {
+				// If post is successfully deleted
+				if (response.data.response.status_code === 1526) {
+					resolve('success');
+				} else {
+					resolve('failure');
+				}
+			});
+		});
+	},
+
 	SEARCH_POSTS: function ({commit}, postData) {
 		return new Promise( (resolve, reject) => {
 			axios.post(process.env.SERVER_ENV + 'posts/search', postData).then(function (response) {
