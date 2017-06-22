@@ -1,11 +1,16 @@
 <template>
   <div class="user-collection" v-loading.body="loading">
-  	<blog-abstract-component 
-      v-for="post in this.allPosts" 
-      :key="post.post_id" 
-      :post="post"
-      :byTag="byTag"
-    ></blog-abstract-component>
+    <div v-if="this.haveCollections">
+      <blog-abstract-component 
+        v-for="post in this.allPosts" 
+        :key="post.post_id" 
+        :post="post"
+        :byTag="byTag"
+      ></blog-abstract-component>
+    </div>
+    <div v-else>
+      <p class="no-collection">{{$t('account.collection.noCollection')}}</p>
+    </div>
   </div>
 </template>
 
@@ -21,6 +26,7 @@ export default {
     loading: 'loading',
     allPosts: 'allPosts',
     userObj: 'userObj',
+    haveCollections: 'haveCollections',
   }),
   data() {
     return {

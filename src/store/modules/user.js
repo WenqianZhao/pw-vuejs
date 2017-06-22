@@ -8,6 +8,7 @@ const state = {
 	userObj: {},
 	status: null,
 	allUsers: [],
+	haveCollections: false,
 };
 
 const getters = {
@@ -15,6 +16,7 @@ const getters = {
 	userObj: state => state.userObj,
 	status: state => state.status,
 	allUsers: state => state.allUsers,
+	haveCollections: state => state.haveCollections,
 };
 
 const actions = {
@@ -258,11 +260,16 @@ const actions = {
 
 	GET_ALL_COLLECTIONS: function ({commit}, postData) {
 		axios.post(process.env.SERVER_ENV + 'user/getallcollections', postData).then(function (response) {
-			var allPosts = response.data.response.data;
-			if(allPosts){
-				allPosts = allPosts.reverse();
+			if (response.data.response.status_code == 2703) {
+				commit('SET_HAVE_COLLECTIONS',{flag: false});
+			} else {
+				var allPosts = response.data.response.data;
+				if(allPosts){
+					allPosts = allPosts.reverse();
+				}
+				commit('SET_ALL_POSTS', {allPosts: allPosts});
+				commit('SET_HAVE_COLLECTIONS',{flag: true});
 			}
-			commit('SET_ALL_POSTS', {allPosts: allPosts});
 			commit('SET_LOADING', {flag: false});
 		}).catch(function(err){
 			console.log(err);
@@ -294,6 +301,9 @@ const mutations = {
 	SET_ALL_USERS: (state, {allUsers}) => {
 		state.allUsers = allUsers;
 	},
+	SET_HAVE_COLLECTIONS: (state, {flag}) => {
+		state.haveCollections = flag;
+	}
 };
 
 export default {

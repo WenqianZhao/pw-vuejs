@@ -110,6 +110,9 @@ const messages = {
 				confirmnewpwd: "Please confirm your new password: ",
 				success: "Successfully changed your password."
 			},
+			collection: {
+				noCollection: "You have no collection now",
+			}
 		},
 		blog: {
 			search: "Search For Posts: ",
@@ -275,6 +278,9 @@ const messages = {
 				confirmnewpwd: "请确认新的密码： ",
 				success: "修改密码成功！"
 			},
+			collection: {
+				noCollection: "您还未收藏任何文章",
+			}
 		},
 		blog: {
 			search: "搜索文章：",

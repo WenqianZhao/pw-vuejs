@@ -48,5 +48,10 @@
 
 	.user-collection {
 		margin: 1em 0 1em 0;
+
+		.no-collection {
+			margin-top: 2em;
+			font-style: italic;
+		}
 	}
 }
