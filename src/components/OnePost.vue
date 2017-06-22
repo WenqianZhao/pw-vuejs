@@ -160,7 +160,7 @@ export default {
         var flag = this.hasCollected();
         this.$store.dispatch('SET_COLLECTION_CURRENT', flag);
         this.collection = flag;
-      }, 300);
+      }, 600);
     },
     hasCollected: function () {
       if (this.currentPost.collectors && this.userObj) {
