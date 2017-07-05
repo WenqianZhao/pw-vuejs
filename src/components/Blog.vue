@@ -32,8 +32,8 @@
               <p class="top-title">{{$t('blog.top')}}</p>
               <p v-for="(post, index) in this.topPosts" :key="post.post_id" class="top-posts-p">{{index+1}}.
                 <router-link :to="{name:'onePost', params:{ id : postComputedID(post.post_id, post.post_title)}}">{{post.post_title}}</router-link>
-                <span class="top-posts-clicks">{{$t('blog.clicks')}}{{post.post_clicks}}</span>
               </p>
+              <p class="top-posts-clicks">{{$t('blog.clicks')}}{{post.post_clicks}}</p>
             </el-row>
 		  		</el-col>
   			</el-row>
