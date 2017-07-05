@@ -33,7 +33,7 @@
               <div v-for="(post, index) in this.topPosts" :key="post.post_id" class="top-posts-p">
                 <el-row>{{index+1}}.<router-link :to="{name:'onePost', params:{ id : postComputedID(post.post_id, post.post_title)}}">{{post.post_title}}</router-link></el-row>
                 <el-row type="flex" justify="end">
-                  <el-col :span="6" class="top-posts-clicks">{{$t('blog.clicks')}}{{post.post_clicks}}</el-col>
+                  <el-col :span="10" class="top-posts-clicks">{{$t('blog.clicks')}}{{post.post_clicks}}</el-col>
                 </el-row>
               </div>
             </el-row>
