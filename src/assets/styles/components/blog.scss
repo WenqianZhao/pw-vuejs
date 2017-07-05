@@ -62,6 +62,15 @@
 	}
 }
 
+.blog-all {
+	.pagination {
+		.el-pager li.active {
+			border-color: #324057;
+			background-color: #324057;
+		}
+	}
+}
+
 .blog-abs {
 	margin: 0 0 1em 0;
 	padding-bottom: 1em;

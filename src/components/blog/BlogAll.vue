@@ -1,11 +1,23 @@
 <template>
   <div class="blog-all">
     <blog-abstract-component 
-      v-for="post in this.allPosts" 
+      v-for="post in allPosts.slice((currentPage-1)*pageSize,currentPage*pageSize)" 
       :key="post.post_id" 
       :post="post"
       :byTag="byTag"
     ></blog-abstract-component>
+    <el-row type="flex" justify="center">
+      <el-col :span="6">
+        <el-pagination
+          class="pagination"
+          layout="prev, pager, next"
+          @current-change="handleCurrentChange"
+          :current-page.sync="currentPage"
+          :page-size="pageSize"
+          :total="this.allPosts.length">
+        </el-pagination>
+      </el-col>
+    </el-row>
   </div>
 </template>
 
@@ -24,10 +36,14 @@ export default {
   data() {
     return {
     	byTag: false,
+      currentPage: 1,
+      pageSize: 8,
     };
   },
   methods: {
-
+    handleCurrentChange(val) {
+      this.currentPage = val;
+    }
   },
   created() {
   	this.$store.dispatch('SET_LOADING_ACTION', true);
