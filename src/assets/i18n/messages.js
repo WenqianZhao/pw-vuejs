@@ -165,6 +165,38 @@ const messages = {
 			hours: " hours ago",
 			day: " day ago",
 			days: " days ago",
+		},
+		app: {
+			todolist: {
+				label1: "To Do List",
+				label2: "What Have Done",
+				label3: "What Over The Deadline",
+				addNew: "Add a new task ...",
+				table: {
+					label1: "Content",
+					label2: "Importance Level",
+					label3: "Days remaining",
+					label4: "Operations",
+					modify: "Modify",
+					finish: "Finished",
+					delete: "Delete"
+				},
+				save: "Save",
+				cancel: "Cancel",
+				newTask: {
+					deadline: "Deadline",
+					rules: {
+						content: "Content is required.",
+						importance: "Importance is required.",
+						deadline: {
+							required: "Deadline is required.",
+							afterToday: "Deadline should not be previous to today."
+						}
+					},
+					success: "Successfully add a task",
+					failure: "Fail to add a task"
+				}
+			}
 		}
 	},
 	// Chinese
@@ -333,6 +365,38 @@ const messages = {
 			hours: " 小时前",
 			day: " 天前",
 			days: " 天前",
+		},
+		app: {
+			todolist: {
+				label1: "计划清单",
+				label2: "已经完成的任务",
+				label3: "逾期未完成的计划",
+				addNew: "添加一个新任务",
+				table: {
+					label1: "内容",
+					label2: "重要程度",
+					label3: "离截止日还剩（天）",
+					label4: "操作",
+					modify: "编辑",
+					finish: "完成",
+					delete: "删除"
+				},
+				save: "保存",
+				cancel: "取消",
+				newTask: {
+					deadline: "截止日期",
+					rules: {
+						content: "请输入任务内容",
+						importance: "请输入任务重要程度",
+						deadline: {
+							required: "请输入任务截止日",
+							afterToday: "任务截止日要在今天之后"
+						}
+					},
+					success: "成功添加任务",
+					failure: "添加任务失败"
+				}
+			}
 		}
 	}
 };

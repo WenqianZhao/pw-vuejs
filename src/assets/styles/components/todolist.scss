@@ -1,0 +1,28 @@
+.todo-list {
+	margin: 3em 10%; 
+
+	.add-new-task {
+		a:link, a:visited {
+			color: #8492A6;
+		}
+		a:hover, a:active {
+			color: #99A9BF;
+		}
+		a {
+			font-size: 0.8em;
+			text-decoration: none;
+		}
+
+		.form-inline {
+			font-size: 0.8em;
+		}
+	}
+
+	.list-table {
+
+	}
+
+	.add-new-task {
+		margin-top: 1em;
+	}
+}

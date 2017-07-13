@@ -26,6 +26,7 @@ import Account from './components/user/Account';
 import Profile from './components/user/Profile';
 import ChangePassword from './components/user/ChangePassword';
 import UserCollection from './components/user/UserCollection';
+import ToDoList from './components/apps/todolist/ToDoList';
 
 // admin
 import AdminPost from './components/admin/AdminPost';
@@ -80,6 +81,12 @@ const routes = [
         path: '/'
       });
     }
+  },
+  {
+    path: '/todolist',
+    name: 'todolist',
+    component: ToDoList,
+    meta: { requiresAuth: true },
   },
   {
     path: '/user',

@@ -12,7 +12,9 @@
             </el-menu-item>
             <el-submenu index="3">
               <template slot="title">{{ $t("navbar.Apps") }}</template>
-              <el-menu-item index="3-1">{{ $t("navbar.todoList") }}</el-menu-item>
+              <el-menu-item index="3-1">
+                <router-link :to="{name:'todolist'}" class="link">{{ $t("navbar.todoList") }}</router-link>
+              </el-menu-item>
               <el-menu-item index="3-2">{{ $t("navbar.loveSoccor") }}</el-menu-item>
               <el-menu-item index="3-3">{{ $t("navbar.simpleTB") }}</el-menu-item>
             </el-submenu>
