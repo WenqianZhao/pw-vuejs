@@ -48,13 +48,29 @@
               close-transition>{{scope.row.importance}}</el-tag>
           </template>
         </el-table-column>
-        <el-table-column
+        <el-table-column 
+          v-if="tabIndex === 0"
           prop="daysRemain"
           sortable
           :label="this.$i18n.t('app.todolist.table.label3')"
           width="200">
         </el-table-column>
+        <el-table-column 
+          v-if="tabIndex === 1"
+          prop="finishedTime"
+          sortable
+          :label="this.$i18n.t('app.todolist.table.label5')"
+          >
+        </el-table-column>
+        <el-table-column 
+          v-if="tabIndex === 2"
+          prop="deadline"
+          sortable
+          :label="this.$i18n.t('app.todolist.table.label6')"
+          >
+        </el-table-column>
         <el-table-column
+          v-if="tabIndex === 0"
           prop="operations"
           :label="this.$i18n.t('app.todolist.table.label4')"
           >
@@ -135,6 +151,7 @@ export default {
       modifyingIndex: -1,
       modifying: false,
       newContent: '',
+      tabIndex: 0,
       newTask: {
         email: '',
         content: '',
@@ -156,7 +173,30 @@ export default {
   },
   methods: {
     handleClick(tab, event) {
-      console.log(tab, event);
+      this.$store.dispatch('SET_LOADING_ACTION', true);
+      switch (parseInt(tab.index)) {
+        case 0:
+          this.tabIndex = 0;
+          this.$store.dispatch('GET_TODOLIST',{
+            email: this.userObj.email,
+            itemClass: 'toDoList'
+          });
+          break;
+        case 1:
+          this.tabIndex = 1;
+          this.$store.dispatch('GET_TODOLIST',{
+            email: this.userObj.email,
+            itemClass: 'haveDone'
+          });
+          break;
+        case 2:
+          this.tabIndex = 2;
+          this.$store.dispatch('GET_TODOLIST',{
+            email: this.userObj.email,
+            itemClass: 'overTime'
+          });
+          break;
+      }
     },
     changeState() {
       this.showAddLink = false;
@@ -174,10 +214,10 @@ export default {
       this.newContent = row.content;
     },
     handleFinish(index, row) {
-      console.log(index, row);
+      this.$store.dispatch('CHANGE_ITEM_CLASS',{id: row.id, index: index, newClass: 'haveDone'});
     },
     handleDelete(index, row) {
-      console.log(index, row);
+      this.$store.dispatch('DELETE_TODOLIST_ITEM',{id: row.id, index: index});
     },
     onSubmit(formName) {
       this.$refs[formName].validate((valid) => {

@@ -175,8 +175,10 @@ const messages = {
 				table: {
 					label1: "Content",
 					label2: "Importance Level",
-					label3: "Days remaining",
+					label3: "Days Remaining",
 					label4: "Operations",
+					label5: "Finished Time",
+					label6: "Deadline",
 					modify: "Modify",
 					finish: "Finished",
 					delete: "Delete"
@@ -371,12 +373,14 @@ const messages = {
 				label1: "计划清单",
 				label2: "已经完成的任务",
 				label3: "逾期未完成的计划",
-				addNew: "添加一个新任务",
+				addNew: "添加一个新任务 ...",
 				table: {
 					label1: "内容",
 					label2: "重要程度",
 					label3: "离截止日还剩（天）",
 					label4: "操作",
+					label5: "完成时间",
+					label6: "截止日",
 					modify: "编辑",
 					finish: "完成",
 					delete: "删除"
