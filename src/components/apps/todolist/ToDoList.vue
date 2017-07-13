@@ -17,6 +17,22 @@
           sortable
           :label="this.$i18n.t('app.todolist.table.label1')"
           width="350">
+          <template scope="scope">
+            <span v-if="modifying && (scope.$index === modifyingIndex)">
+              <el-col :span="6">
+               <el-input size="mini" v-model="newContent" type="text"></el-input>
+              </el-col>
+              <el-col :span="2" :offset="1">
+                <el-button size="mini" @click="saveModification(scope.$index, scope.row.id)">Save</el-button>
+              </el-col>
+              <el-col :span="2" :offset="1">
+                <el-button size="mini" @click="resetModificationFields">Cancel</el-button>
+              </el-col>
+            </span>
+            <span v-else>
+              {{ scope.row.content }}
+            </span>
+          </template>
         </el-table-column>
         <el-table-column
           prop="importance"
@@ -116,6 +132,9 @@ export default {
     return {
     	activeName: 'todoList',
       showAddLink: true,
+      modifyingIndex: -1,
+      modifying: false,
+      newContent: '',
       newTask: {
         email: '',
         content: '',
@@ -150,7 +169,9 @@ export default {
       else return (importance === 'Middle' ? 'warning' : 'primary');
     },
     handleEdit(index, row) {
-      console.log(index, row);
+      this.modifying = true;
+      this.modifyingIndex = index;
+      this.newContent = row.content;
     },
     handleFinish(index, row) {
       console.log(index, row);
@@ -187,6 +208,17 @@ export default {
       this.newTask.content = '';
       this.newTask.importance = '';
       this.newTask.deadline = '';
+    },
+    saveModification(index, id) {
+      this.$store.dispatch('MODIFY_TODOLIST_ITEM',{
+        index: index,
+        id: id,
+        content: this.newContent
+      });
+      this.modifying = false;
+    },
+    resetModificationFields() {
+      this.modifying = false;
     }
   },
   created() {

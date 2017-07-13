@@ -36,6 +36,14 @@ const actions = {
 		}).catch(function (error) {
 			reject(error);
 		});	
+	},
+
+	MODIFY_TODOLIST_ITEM: function ({commit}, postData) {
+		axios.post(process.env.SERVER_ENV + 'app/todolist/modifyitem', postData).then(function (response) {
+			if (response.data.response.status_code === 3106) {
+				commit('MODIFY_TODOLIST_ITEM', {index: postData.index, content: postData.content});
+			}
+		});
 	}
 };
 
@@ -64,6 +72,9 @@ const mutations = {
 		var daysRemain = (deadline - today)/(24*60*60*1000);
 		newTask['daysRemain'] = parseInt(daysRemain);
 		state.todolistItems.push(newTask);
+	},
+	MODIFY_TODOLIST_ITEM: function(state, {index, content}) {
+		state.todolistItems[index].content = content;
 	}
 };
 
