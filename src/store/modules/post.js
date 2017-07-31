@@ -166,6 +166,16 @@ const actions = {
 		});
 	},
 
+	GET_POSTS_BY_CATEGORY: function ({commit}, postData) {
+		axios.post(process.env.SERVER_ENV + 'posts/getbycategory', postData).then(function (response) {
+			var posts = response.data.response.data;
+			commit('SET_ALL_POSTS', {allPosts: posts});
+			commit('SET_LOADING', {flag: false});
+		}).catch(function(err){
+			console.log(err);
+		});
+	},
+
 	UPDATE_POST_WITH_LIKES: function ({commit,state}, postData) {
 		axios.post(process.env.SERVER_ENV + 'posts/updatelike', postData).then(function (response) {
 			var updatedPost = response.data.response.data;

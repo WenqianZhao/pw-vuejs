@@ -7,6 +7,7 @@ import post from './modules/post';
 import comment from './modules/comment';
 import contact from './modules/contact';
 import todolist from './modules/todolist';
+import category from './modules/category';
 
 Vue.use(Vuex);
 
@@ -16,6 +17,7 @@ export default new Vuex.Store({
   	post,
   	comment,
   	contact,
-  	todolist
+  	todolist,
+  	category
   },
 });

@@ -18,6 +18,9 @@
           <el-menu-item index="3">
             <router-link :to="{name:'adminGetAllAdvices'}" class="link">Advices</router-link>
           </el-menu-item>
+          <el-menu-item index="4">
+            <router-link :to="{name:'adminGetAllCategories'}" class="link">Categories</router-link>
+          </el-menu-item>
         </el-menu>
       </el-col>
       <el-col :span="20">

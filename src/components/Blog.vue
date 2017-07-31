@@ -28,6 +28,14 @@
 					      </el-tag>
 							</el-row>
 		  			</el-row>
+            <el-row class="all-categories">
+              <el-row>
+                <p>{{$t('blog.categories')}}</p>
+              </el-row>
+              <el-row v-for="(category, index) in this.allCategories" :key="category.content" class="category">
+                <p>{{index+1}}.<router-link :to="{name:'blogCategory', params:{ name : category.content}}">{{category.content}}({{category.numberofposts}})</router-link></p> 
+              </el-row>
+            </el-row>
             <el-row class="top-posts">
               <p class="top-title">{{$t('blog.top')}}</p>
               <div v-for="(post, index) in this.topPosts" :key="post.post_id" class="top-posts-p">
@@ -58,6 +66,7 @@ export default {
     loadingTopPosts: 'loadingTopPosts',
   	allTags: 'allTags',
     topPosts: 'topPosts',
+    allCategories: 'allCategories',
   }),
   data() {
     return {
@@ -78,8 +87,10 @@ export default {
     }
   },
   created() {
+    this.$store.dispatch('SET_LOADING_ACTION', true);
   	this.$store.dispatch('SET_LOADING_TAG_ACTION', true);
     this.$store.dispatch('SET_LOADING_TOP_POSTS_ACTION', true);
+    this.$store.dispatch('GET_ALL_CATEGORIES');
   	this.$store.dispatch('GET_ALL_TAGS');
     this.$store.dispatch('GET_TOP_POSTS');
   }

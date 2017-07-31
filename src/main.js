@@ -21,6 +21,7 @@ import Contact from './components/Contact';
 import OnePost from './components/OnePost';
 import BlogByTag from './components/blog/BlogByTag';
 import BlogSearch from './components/blog/BlogSearch';
+import BlogByCategory from './components/blog/BlogByCategory';
 import BlogAll from './components/blog/BlogAll';
 import Account from './components/user/Account';
 import Profile from './components/user/Profile';
@@ -35,6 +36,7 @@ import AdminPostGetAll from './components/admin/post/AdminPostGetAll';
 import AdminGetAllAdvices from './components/admin/advice/AdminGetAllAdvices';
 import AdminGetAllUsers from './components/admin/AdminGetAllUsers';
 import AdminModifypost from './components/admin/post/AdminModifypost';
+import AdminGetAllCategories from './components/admin/AdminGetAllCategories';
 
 import jwt from 'jsonwebtoken';
 
@@ -130,6 +132,11 @@ const routes = [
         path: 'search/:content',
         name: 'blogSearch',
         component: BlogSearch,
+      },
+      {
+        path: 'category/:name',
+        name: 'blogCategory',
+        component: BlogByCategory,
       }
     ]
   },
@@ -185,6 +192,11 @@ const routes = [
         path: 'users/all',
         name: 'adminGetAllUsers',
         component: AdminGetAllUsers
+      },
+      {
+        path: 'categories/all',
+        name: 'adminGetAllCategories',
+        component: AdminGetAllCategories
       }
     ],
   },

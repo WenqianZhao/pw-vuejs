@@ -135,6 +135,7 @@ const messages = {
 			},
 			bytag: "Here are the posts with tag '{tag}' :",
 			onsearch: "Here are the posts that contains '{search}' :",
+			bycategory: "Here are the posts of category '{category}' :",
 			clicks: "  Clicks: ",
 			top: "Top 5 posts: ",
 			collect: {
@@ -145,6 +146,21 @@ const messages = {
 				click: "Click to like",
 				cancel: "Click to cancel like",
 			},
+			categories: "Categories: ",
+			category: {
+				content: "Content",
+				create: "Create a new category: ",
+				newCategory: {
+					success: "Successfully created a new category.",
+					failure: "Fail to create a new category."
+				},
+				select: "Select one category: ",
+				add: "Add",
+				addto: {
+					success: "Successfully add category to the post.",
+					failure: "Fail to add category to the post."
+				}
+			}
 		},
 		comment: {
 			collapsed: " collapsed",
@@ -337,6 +353,7 @@ const messages = {
 			},
 			bytag: "下面是所有拥有标签‘{tag}’的文章：",
 			onsearch: "下面是所有包含‘{search}’的文章：",
+			bycategory: "下面是所有属于'{category}'类别的文章 :",
 			clicks: "  点击量：",
 			top: "最受欢迎的5篇博文：",
 			collect: {
@@ -347,6 +364,21 @@ const messages = {
 				click: "喜欢就点击一下吧",
 				cancel: "点击取消喜欢",
 			},
+			categories: "分类：",
+			category: {
+				content: "名称",
+				create: "新建一个分类：",
+				newCategory: {
+					success: "成功添加分类",
+					failure: "添加分类失败"
+				},
+				select: "选择一个分类：",
+				add: "添加",
+				addto: {
+					success: "成功将文章添加分类",
+					failure: "添加分类失败"
+				}
+			}
 		},
 		comment: {
 			collapsed: " 点击查看",

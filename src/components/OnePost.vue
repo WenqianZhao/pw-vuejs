@@ -64,6 +64,21 @@
           <el-row v-if="this.userObj.role === 'Admin'" class="modify-post">
             <router-link :to="{name:'adminModifyPost', params: { id: this.currentPost.id }}" class="link"><i class="el-icon-edit"></i></router-link>
             <i class="el-icon-delete" @click="deletePost"></i>
+            <el-form :inline="true" :model="category" class="create-new-category">
+              <el-form-item :label="this.$i18n.t('blog.category.select')">
+                <el-select v-model="category.content">
+                  <el-option
+                    v-for="item in this.allCategories"
+                    :key="item.content"
+                    :label="item.content"
+                    :value="item.content">
+                  </el-option>
+                </el-select>
+              </el-form-item>
+              <el-form-item>
+                <el-button type="primary" @click="onAddSubmit">{{$t('blog.category.add')}}</el-button>
+              </el-form-item>
+            </el-form>
           </el-row>
           <el-row class="post-comments">
             <h3>{{$t('blog.onepost.comments')}}</h3>
@@ -133,6 +148,9 @@ export default {
     userObj: function () {
       return this.$store.getters.userObj;
     },
+    allCategories: function () {
+      return this.$store.getters.allCategories;
+    }
   },
   data() {
     return {
@@ -143,6 +161,9 @@ export default {
       postID: "",
       likeContent: this.likeCurrent ? this.$i18n.t("blog.like.cancel") : this.$i18n.t("blog.like.click"),
       collectContent: this.likeCurrent ? this.$i18n.t("blog.collect.cancel") : this.$i18n.t("blog.collect.click"),
+      category: {
+        content: ''
+      }
     };
   },
   methods: {
@@ -152,6 +173,8 @@ export default {
       var decodedString = new Buffer(encodedString, 'base64').toString('ascii');
       var postID = decodedString.split('&&')[0];
       this.postID = postID;
+      this.$store.dispatch('SET_LOADING_ACTION', true);
+      this.$store.dispatch('GET_ALL_CATEGORIES');
       this.$store.dispatch('SET_LOADING_ACTION', true);
       this.$store.dispatch('SET_COMMENT_LOADING_ACTION', true);
       this.$store.dispatch('GET_ONE_POST', {postID: postID});
@@ -216,6 +239,28 @@ export default {
           });
         }
       });
+    },
+    onAddSubmit () {
+      if (this.category.content.length > 0) {
+        var postData = {
+          postID: this.postID,
+          content: this.category.content
+        }
+        this.$store.dispatch('ADD_POST_TO_CATEGORY', postData).then( (message) => {
+          if (message === "success") {
+            this.$message({
+              message: this.$i18n.t('blog.category.addto.success'),
+              type: 'success'
+            });
+            this.category.content = "";
+          } else {
+            this.$message({
+              message: this.$i18n.t('blog.category.addto.failure'),
+              type: 'warn'
+            });
+          }
+        });
+      }
     },
     onReset () {
       this.textarea = "";
